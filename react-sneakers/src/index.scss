@@ -1,9 +1,13 @@
 body {
   margin: 0;
-  font-family: Arial,system-ui;
+  font-family: "Inter", system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #E7F6FF;
+}
+
+button, input {
+  font-family: inherit;
 }
 
 h3, p {
@@ -73,5 +77,105 @@ h3, p {
   &__title {
     margin: 0;
   }
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  &__search-block {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  &__search-input {
+    padding-left: 46px;
+    padding-right: 30px;
+    border: 1px solid #f3f3f3;
+    border-radius: 10px;
+    width: 250px;
+    height: 45px;
+    &::placeholder {
+      font-weight: 400;
+      font-size: 14px;
+      color: #c4c4c4;
+    }
+  }
+  &__search-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+  }
+  &__top {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
 }
 
+
+.card {
+  position: relative;
+  border: 1px solid #f3f3f3;
+  border-radius: 40px;
+  width: 150px;
+  padding: 20px 29px 34px 30px;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  // cursor: pointer;
+  &:hover {
+    box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.06);
+    transform: translateY(-5px);
+  }
+  &__title {
+    font-weight: 400;
+    font-size: 14px;
+    color: #000;
+  }
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+  }
+  &__button {
+    background-color: transparent;
+    border: 1px solid #f2f2f2;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+
+  }
+  &__price {
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+  }
+  &__text {
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #bdbdbd;
+  }
+  &__heart {
+    position: absolute;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1100px) {
+  .content__wrapper {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+}
+@media (max-width: 1000px) {
+  .content__wrapper {
+    grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+}

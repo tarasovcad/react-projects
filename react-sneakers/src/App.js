@@ -2,6 +2,7 @@
 function App() {
   return (
     <div className="wrapper">
+
       <header className="header">
         <div className="header__left">
           <img className="header__left-img" src="/img/logo.png" alt="#" width={40} height={40}/>
@@ -22,22 +23,124 @@ function App() {
         </ul>
       </header>
       <div className="content">
-        <h1 className="content__title">All sneakers</h1>
-
-        <div className="card">
-          <img src="" alt="" />
-          <p></p>
-          <div>
-            <div>
-              <span>Price:</span>
-              <b>12 900 $</b>
-            </div>
-            <button>
-              <img src="/img/plus.svg" alt="plus" />
-            </button>
-          </div>
+        <div className="content__top">
+          <h1 className="content__title">All sneakers</h1>
+          <form className="content__search-block">
+          <input className="content__search-input" placeholder="Search..." />
+          <button className="content__search-button">
+            <img className="content__search-svg" src="/img/search.svg" alt="Search" width={14.24} height={14.24}/>
+          </button>
+        </form>
         </div>
-  
+
+        <div className="content__wrapper">
+          <div className="card">
+              <img className="card__heart" src="/img/heart-unliked.svg" alt="Unliked" />
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="carfd__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+          <div className="card">
+              <img src="/img/sneakers/1.jpg" alt="" width={133} height={112}/>
+              <h5 className="card__title">Men's Nike Blazer Mid Suede Sneakers</h5>
+              <div className="card__bottom">
+                <div>
+                  <p className="card__text">Price:</p>
+                  <b className="card__price">12 900 $</b>
+                </div>
+                <button className="card__button">
+                  <img src="/img/plus.svg" alt="plus" width={11} height={11}/>
+                </button>
+              </div>
+            </div>
+
+        </div>
       </div>
     </div>
   );
