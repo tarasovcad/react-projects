@@ -5,7 +5,7 @@ import { Drawer } from './components/Drawer';
 
 function App() {
   const [items, setItems] = React.useState([]);
-  const [cartItems, setCartItems] = React.useState([]);
+  const [cartItems, setCartItems] = React.useState([]); // The object by default doesn't have any items (so the cart is empty)
   const [cartOpened, setCartOpened] = React.useState(false);
 
   // You can use Axios https://axios-http.com/
@@ -19,6 +19,13 @@ function App() {
         setItems(json);
       });
   }, []);
+
+  const onAddToCart = (obj) => {
+    // setCartItems([...cartItems, obj]);
+    setCartItems((prev) => [...prev, obj]);
+  };
+
+  console.log(cartItems);
 
   return (
     <div className="wrapper">
@@ -44,13 +51,14 @@ function App() {
         </div>
 
         <div className="content__wrapper">
-          {items.map((obj) => (
+          {items.map((item) => (
             <Card
-              title={obj.title}
-              price={obj.price}
-              imageUrl={obj.imageUrl}
+              title={item.title}
+              price={item.price}
+              imageUrl={item.imageUrl}
               onClickFavourite={() => console.log('Add in bookmarks')}
-              onClickAdd={(obj) => console.log(obj)}
+              onClickAdd={(obj) => onAddToCart(obj)}
+              //onClickAdd={(obj) => onAddToCart(item)}
             />
           ))}
         </div>
