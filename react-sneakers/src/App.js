@@ -1,4 +1,4 @@
-import { Card } from "./components/Card";
+import Card from "./components/Card/Card";
 import { Header } from "./components/Header";
 import { Drawer } from "./components/Drawer";
 
@@ -49,6 +49,8 @@ function App() {
               title= {obj.title}
               price = {obj.price}
               imageUrl = {obj.imageUrl}
+              onClickFavourite = {() => console.log('Add in ..')}
+              onClickAdd = {() => console.log(obj)}
             />
           )}
         </div>

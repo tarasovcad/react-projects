@@ -117,50 +117,7 @@ h3, p {
 }
 
 
-.card {
-  position: relative;
-  border: 1px solid #f3f3f3;
-  border-radius: 40px;
-  width: 150px;
-  padding: 20px 29px 34px 30px;
-  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-  // cursor: pointer;
-  &:hover {
-    box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.06);
-    transform: translateY(-5px);
-  }
-  &__title {
-    font-weight: 400;
-    font-size: 14px;
-    color: #000;
-  }
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 14px;
-  }
-  &__button {
-    background-color: transparent;
-    border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    border-radius: 8px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
 
-  }
-  &__text {
-    font-weight: 500;
-    font-size: 11px;
-    text-transform: uppercase;
-    color: #bdbdbd;
-  }
-  &__heart {
-    position: absolute;
-    cursor: pointer;
-  }
-}
 
 @media (max-width: 1100px) {
   .content__wrapper {
