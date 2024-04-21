@@ -5,18 +5,7 @@ import { Drawer } from './components/Drawer';
 
 function App() {
   const [items, setItems] = React.useState([]);
-  const [cartItems, setCartItems] = React.useState([
-    {
-      title: 'Nike Blazer Mid Suede Sneakers',
-      price: 12900,
-      imageUrl: './img/sneakers/1.jpg',
-    },
-    {
-      title: 'Nike Air Max 270 Sneakers',
-      price: 15600,
-      imageUrl: './img/sneakers/2.jpg',
-    },
-  ]);
+  const [cartItems, setCartItems] = React.useState([]);
   const [cartOpened, setCartOpened] = React.useState(false);
 
   // You can use Axios https://axios-http.com/
@@ -60,8 +49,8 @@ function App() {
               title={obj.title}
               price={obj.price}
               imageUrl={obj.imageUrl}
-              onClickFavourite={() => console.log('Add in ..')}
-              onClickAdd={() => console.log(obj)}
+              onClickFavourite={() => console.log('Add in bookmarks')}
+              onClickAdd={() => console.log('We pressed the add button')}
             />
           ))}
         </div>
