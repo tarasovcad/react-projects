@@ -1,4 +1,5 @@
-export function Header() {
+export function Header(props) {
+    console.log(props)
     return (
         <header className="header">
             <div className="header__left">
@@ -9,7 +10,7 @@ export function Header() {
                 </div>
             </div>
             <ul className="header__right">
-                <li className="header__right-card">
+                <li className="header__right-card" onClick={props.onClickCart}>
                     <img className="header__right-img" src="/img/cart.svg" alt="image" />
                     <span className="header__right-cardtext header__right-cardtext--active">1205 $</span>
                     </li>

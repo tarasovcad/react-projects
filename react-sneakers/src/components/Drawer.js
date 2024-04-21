@@ -1,6 +1,6 @@
 export function Drawer () {
     return (
-        <div className="overlay" style={{display: 'none'}}>
+        <div className="overlay">
             <div className="drawer">
             <div className="drawer__bottom">
             <h3 className="drawer__title">Cart</h3>
@@ -15,7 +15,7 @@ export function Drawer () {
                 <div className="card__item-info">
                     <h5 className="card__item-title">Nike Blazer Mid Suede Sneakers</h5>
                     <span className="price">1 205 $</span>
-                </div>
+                </div> 
                 <button className="card__item-button">
                     <img className="card__item-close" src="/img/plus.svg" alt="remove" width={11} height={11}/>
                 </button>
