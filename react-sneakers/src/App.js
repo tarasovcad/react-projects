@@ -50,7 +50,7 @@ function App() {
               price={obj.price}
               imageUrl={obj.imageUrl}
               onClickFavourite={() => console.log('Add in bookmarks')}
-              onClickAdd={() => console.log('We pressed the add button')}
+              onClickAdd={(obj) => console.log(obj)}
             />
           ))}
         </div>

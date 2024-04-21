@@ -5,7 +5,7 @@ export default function Card({ onFavourite, onClickAdd, imageUrl, title, price }
   const [isAdded, setIsAdded] = React.useState(false);
 
   const onClickPlus = () => {
-    onClickAdd();
+    onClickAdd({ imageUrl, title, price });
     setIsAdded(!isAdded);
   };
 
