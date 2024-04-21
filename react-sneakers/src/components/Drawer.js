@@ -1,10 +1,11 @@
-export function Drawer () {
+export function Drawer (props) {
+    console.log(props)
     return (
         <div className="overlay">
             <div className="drawer">
             <div className="drawer__bottom">
             <h3 className="drawer__title">Cart</h3>
-            <button className="close-button">
+            <button className="close-button" onClick={props.onClose}>
                     <img className="close-button__img" src="/img/plus.svg" alt="remove" width={11} height={11}/>
             </button>
 
