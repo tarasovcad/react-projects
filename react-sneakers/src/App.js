@@ -4,31 +4,21 @@ import { Header } from "./components/Header";
 import { Drawer } from "./components/Drawer";
 
 
-const arr = [
-  {
-    title: 'Nike Blazer Mid Suede Sneakers', 
-    price: 12900,
-    imageUrl: "./img/sneakers/1.jpg"
-  },
-  {
-    title: 'Nike Air Max 270 Sneakers', 
-    price: 15600,
-    imageUrl: "./img/sneakers/2.jpg"
-  },
-  {
-    title: 'Nike Blazer Mid Suede Sneakers', 
-    price: 8499,
-    imageUrl: "./img/sneakers/3.jpg"
-  },
-  {
-    title: 'Puma X Aka Boku Future Rider Sneakers', 
-    price: 8999,
-    imageUrl: "./img/sneakers/4.jpg"
-  },
-]
 
 function App() {
+  const [items, setItems] = React.useState([]);
   const [cartOpened, setCartOpened] = React.useState(false)
+
+  React.useEffect (() => {
+    fetch('https://66248cbd04457d4aaf9c6dc1.mockapi.io/items').then(res => {
+      return res.json();
+    })
+    .then((json) => {
+      // console.log(json)
+      setItems(json)
+    })
+  }, [])
+
   return (
     <div className="wrapper">
       {cartOpened && <Drawer onClose={() => setCartOpened(false)} />}
@@ -47,7 +37,7 @@ function App() {
         </div>
 
         <div className="content__wrapper">
-          {arr.map((obj) => 
+          {items.map((obj) => 
             <Card 
               title= {obj.title}
               price = {obj.price}

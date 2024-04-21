@@ -1,5 +1,5 @@
 export function Drawer (props) {
-    console.log(props)
+    // console.log(props)
     return (
         <div className="overlay">
             <div className="drawer">

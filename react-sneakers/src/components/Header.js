@@ -1,5 +1,5 @@
 export function Header(props) {
-    console.log(props)
+    // console.log(props)
     return (
         <header className="header">
             <div className="header__left">
