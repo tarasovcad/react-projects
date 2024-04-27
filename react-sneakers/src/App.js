@@ -6,7 +6,7 @@ import { Drawer } from './components/Drawer';
 
 function App() {
   const [items, setItems] = React.useState([]);
-  const [cartItems, setCartItems] = React.useState([]); // The object by default doesn't have any items (so the cart is empty)
+  const [cartItems, setCartItems] = React.useState([]);
   const [searchValue, setsearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
 
