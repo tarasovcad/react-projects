@@ -27,11 +27,15 @@ function App() {
   };
 
   const onChangeSeatchInput = (event) => {
-    console.log(event.target.value);
-    //setsearchValue();
+    //console.log('1');
+    setsearchValue(event.target.value);
   };
 
-  console.log(cartItems, 'cartItems');
+  const clearInput = () => {
+    setsearchValue('');
+  };
+
+  //console.log(cartItems, 'cartItems');
 
   return (
     <div className="wrapper">
@@ -41,9 +45,23 @@ function App() {
       <Header onClickCart={() => setCartOpened(true)} />
       <div className="content">
         <div className="content__top">
-          <h1 className="content__title">All sneakers</h1>
+          <h1 className="content__title">
+            {searchValue ? `Поиск по запросу: "${searchValue}"` : 'All sneakers'}
+          </h1>
           <form className="content__search-block">
+            {searchValue && (
+              <button className="close-button clear" onClick={clearInput}>
+                <img
+                  className="close-button__img clear__img"
+                  src="/img/plus.svg"
+                  alt="remove"
+                  width={11}
+                  height={11}
+                />
+              </button>
+            )}
             <input
+              value={searchValue}
               className="content__search-input"
               placeholder="Search..."
               onChange={onChangeSeatchInput}

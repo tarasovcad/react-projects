@@ -119,6 +119,13 @@ p {
   }
 }
 
+.clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 @media (max-width: 1100px) {
   .content__wrapper {
     grid-template-columns: repeat(4, 1fr);
