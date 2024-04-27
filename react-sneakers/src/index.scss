@@ -304,3 +304,59 @@ p {
 .close-button__img {
   rotate: 45deg;
 }
+
+.cart__empty {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+
+  &-img {
+    width: 120px;
+    height: 120px;
+  }
+  &-title {
+    margin-bottom: 9px;
+    margin-top: 21px;
+    font-weight: 600;
+    font-size: 22px;
+    color: #000;
+  }
+  &-text {
+    max-width: 285px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #000;
+    opacity: 0.4;
+    margin-bottom: 40px;
+  }
+  &-button {
+    padding: 18px 60px;
+    border: none;
+    border-radius: 18px;
+    background-color: #9dd458;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    transition: background-color 0.15s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      background-color: lighten(#9dd458, 10%);
+      .cart__empty-buttonImg {
+        transform: translateX(-5px);
+      }
+    }
+    &:active {
+      background-color: darken(#9dd458, 10%);
+    }
+  }
+  &-buttonImg {
+    margin-right: 15px;
+    transition: transform 0.2s ease-in-out;
+  }
+}
