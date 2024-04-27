@@ -6,6 +6,7 @@ import { Drawer } from './components/Drawer';
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]); // The object by default doesn't have any items (so the cart is empty)
+  const [searchValue, setsearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
 
   // You can use Axios https://axios-http.com/
@@ -25,7 +26,12 @@ function App() {
     setCartItems((prev) => [...prev, obj]);
   };
 
-  console.log(cartItems);
+  const onChangeSeatchInput = (event) => {
+    console.log(event.target.value);
+    //setsearchValue();
+  };
+
+  console.log(cartItems, 'cartItems');
 
   return (
     <div className="wrapper">
@@ -37,7 +43,11 @@ function App() {
         <div className="content__top">
           <h1 className="content__title">All sneakers</h1>
           <form className="content__search-block">
-            <input className="content__search-input" placeholder="Search..." />
+            <input
+              className="content__search-input"
+              placeholder="Search..."
+              onChange={onChangeSeatchInput}
+            />
             <button className="content__search-button">
               <img
                 className="content__search-svg"
@@ -51,8 +61,9 @@ function App() {
         </div>
 
         <div className="content__wrapper">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <Card
+              key={index}
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}

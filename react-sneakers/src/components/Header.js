@@ -14,7 +14,7 @@ export function Header(props) {
           <img className="header__right-img" src="/img/cart.svg" alt="image" />
           <span className="header__right-cardtext header__right-cardtext--active">1205 $</span>
         </li>
-        <li className="header__right-user">
+        <li className="header__right-user c">
           <img className="header__right-img" src="/img/user.svg" alt="image" />
           <span className="header__right-usertext">User</span>
         </li>
