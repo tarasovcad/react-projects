@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Card from './components/Card/Card';
 import { Header } from './components/Header';
 import { Drawer } from './components/Drawer';
@@ -11,17 +12,25 @@ function App() {
 
   // You can use Axios https://axios-http.com/
   React.useEffect(() => {
-    fetch('https://66248cbd04457d4aaf9c6dc1.mockapi.io/items')
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        // console.log(json)
-        setItems(json);
-      });
+    // fetch('https://66248cbd04457d4aaf9c6dc1.mockapi.io/items')
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((json) => {
+    //     // console.log(json)
+    //     setItems(json);
+    //   });
+
+    axios.get('https://66248cbd04457d4aaf9c6dc1.mockapi.io/items').then((res) => {
+      setItems(res.data);
+    });
+    axios.get('https://66248cbd04457d4aaf9c6dc1.mockapi.io/card').then((res) => {
+      setCartItems(res.data);
+    });
   }, []);
 
   const onAddToCart = (obj) => {
+    axios.post('https://66248cbd04457d4aaf9c6dc1.mockapi.io/card', obj);
     // setCartItems([...cartItems, obj]);
     setCartItems((prev) => [...prev, obj]);
   };
