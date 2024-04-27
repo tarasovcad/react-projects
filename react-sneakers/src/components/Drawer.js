@@ -16,7 +16,7 @@ export function Drawer({ onClose, onRemove, items = [] }) {
           </button>
         </div>
         {items.length > 0 ? (
-          <div>
+          <div className="wrap">
             <div className="card__items">
               {items.map((obj) => (
                 <div className="card__item">
@@ -73,7 +73,7 @@ export function Drawer({ onClose, onRemove, items = [] }) {
             <img className="cart__empty-img" src="/img/empty.png" alt="empty" />
             <h2 className="cart__empty-title">The cart is empty</h2>
             <p className="cart__empty-text">Add at least one pair of sneakers to place an order.</p>
-            <button className="cart__empty-button">
+            <button className="cart__empty-button" onClick={onClose}>
               <img
                 className="cart__empty-buttonImg"
                 src="/img/arrow.svg"
