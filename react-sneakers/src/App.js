@@ -79,17 +79,19 @@ function App() {
         </div>
 
         <div className="content__wrapper">
-          {items.map((item, index) => (
-            <Card
-              key={index}
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onClickFavourite={() => console.log('Add in bookmarks')}
-              onClickAdd={(obj) => onAddToCart(obj)}
-              //onClickAdd={(obj) => onAddToCart(item)}
-            />
-          ))}
+          {items
+            .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+            .map((item, index) => (
+              <Card
+                key={index}
+                title={item.title}
+                price={item.price}
+                imageUrl={item.imageUrl}
+                onClickFavourite={() => console.log('Add in bookmarks')}
+                onClickAdd={(obj) => onAddToCart(obj)}
+                //onClickAdd={(obj) => onAddToCart(item)}
+              />
+            ))}
         </div>
       </div>
     </div>
