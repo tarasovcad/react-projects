@@ -35,6 +35,12 @@ function App() {
     setCartItems((prev) => [...prev, obj]);
   };
 
+  const onRemoveItem = (id) => {
+    console.log(id);
+    axios.delete(`https://66248cbd04457d4aaf9c6dc1.mockapi.io/card/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
   const onChangeSeatchInput = (event) => {
     //console.log('1');
     setsearchValue(event.target.value);
@@ -48,7 +54,9 @@ function App() {
 
   return (
     <div className="wrapper">
-      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} />}
+      {cartOpened && (
+        <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
+      )}
       {/* {cartOpened ? <Drawer onCloseCart={() => setCartOpened(false)} /> : null} */}
       <div className="div"></div>
       <Header onClickCart={() => setCartOpened(true)} />

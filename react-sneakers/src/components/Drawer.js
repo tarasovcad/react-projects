@@ -1,4 +1,4 @@
-export function Drawer({ onClose, items = [] }) {
+export function Drawer({ onClose, onRemove, items = [] }) {
   // console.log(props)
   return (
     <div className="overlay">
@@ -29,7 +29,7 @@ export function Drawer({ onClose, items = [] }) {
                 <h5 className="card__item-title">{obj.title}</h5>
                 <span className="price">{obj.price} $</span>
               </div>
-              <button className="card__item-button">
+              <button className="card__item-button" onClick={() => onRemove(obj.id)}>
                 <img
                   className="card__item-close"
                   src="/img/plus.svg"
