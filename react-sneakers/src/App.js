@@ -48,14 +48,14 @@ function App() {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const onAddToFavorite = (obj) => {
+  const onAddToFavorite = async (obj) => {
     console.log(obj);
     if (favorites.find((favObj) => favObj.id === obj.id)) {
       axios.delete(`https://d4cf0dbc23d5e51d.mokky.dev/favorites/${obj.id}`);
       setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
     } else {
-      axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favorites', obj);
-      setFavorites((prev) => [...prev, obj]);
+      const { data } = await axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favorites', obj);
+      setFavorites((prev) => [...prev, data]);
     }
   };
 
