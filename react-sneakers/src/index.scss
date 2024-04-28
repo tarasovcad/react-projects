@@ -11,6 +11,11 @@ input {
   font-family: inherit;
 }
 
+*a {
+  text-decoration: none;
+  color: inherit;
+}
+
 h3,
 p {
   margin: 0;
@@ -55,6 +60,12 @@ p {
     font-weight: 400;
     font-size: 14px;
     color: #5c5c5c;
+  }
+  &__right-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   &__right-card {

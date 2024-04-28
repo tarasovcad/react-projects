@@ -1,13 +1,17 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import Card from './components/Card/Card';
 import { Header } from './components/Header';
 import { Drawer } from './components/Drawer';
+import { Home } from './pages/Home';
+import { Favorites } from './pages/Favorites';
 
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
-  const [searchValue, setsearchValue] = React.useState('');
+  const [favorites, setFavorites] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
 
   // You can use Axios https://axios-http.com/
@@ -21,36 +25,39 @@ function App() {
     //     setItems(json);
     //   });
 
-    axios.get('https://66248cbd04457d4aaf9c6dc1.mockapi.io/items').then((res) => {
+    axios.get('https://d4cf0dbc23d5e51d.mokky.dev/items').then((res) => {
       setItems(res.data);
     });
-    axios.get('https://66248cbd04457d4aaf9c6dc1.mockapi.io/card').then((res) => {
+    axios.get('https://d4cf0dbc23d5e51d.mokky.dev/card').then((res) => {
       setCartItems(res.data);
     });
   }, []);
 
   const onAddToCart = (obj) => {
-    axios.post('https://66248cbd04457d4aaf9c6dc1.mockapi.io/card', obj);
+    axios.post('https://d4cf0dbc23d5e51d.mokky.dev/card', obj);
     // setCartItems([...cartItems, obj]);
     setCartItems((prev) => [...prev, obj]);
   };
 
   const onRemoveItem = (id) => {
     console.log(id);
-    axios.delete(`https://66248cbd04457d4aaf9c6dc1.mockapi.io/card/${id}`);
+    axios.delete(`https://d4cf0dbc23d5e51d.mokky.dev/card/${id}`);
     setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const onAddToFavorite = (obj) => {
+    axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favourites', obj);
+    setFavorites((prev) => [...prev, obj]);
   };
 
   const onChangeSeatchInput = (event) => {
     //console.log('1');
-    setsearchValue(event.target.value);
+    setSearchValue(event.target.value);
   };
 
   const clearInput = () => {
-    setsearchValue('');
+    setSearchValue('');
   };
-
-  //console.log(cartItems, 'cartItems');
 
   return (
     <div className="wrapper">
@@ -58,59 +65,25 @@ function App() {
         <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
       )}
       {/* {cartOpened ? <Drawer onCloseCart={() => setCartOpened(false)} /> : null} */}
-      <div className="div"></div>
       <Header onClickCart={() => setCartOpened(true)} />
-      <div className="content">
-        <div className="content__top">
-          <h1 className="content__title">
-            {searchValue ? `Поиск по запросу: "${searchValue}"` : 'All sneakers'}
-          </h1>
-          <form className="content__search-block">
-            {searchValue && (
-              <button className="close-button clear" onClick={clearInput}>
-                <img
-                  className="close-button__img clear__img"
-                  src="/img/plus.svg"
-                  alt="remove"
-                  width={11}
-                  height={11}
-                />
-              </button>
-            )}
-            <input
-              value={searchValue}
-              className="content__search-input"
-              placeholder="Search..."
-              onChange={onChangeSeatchInput}
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={
+            <Home
+              onChangeSeatchInput={onChangeSeatchInput}
+              items={items}
+              setSearchValue={setSearchValue}
+              searchValue={searchValue}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+              clearInput={clearInput}
             />
-            <button className="content__search-button">
-              <img
-                className="content__search-svg"
-                src="/img/search.svg"
-                alt="Search"
-                width={14.24}
-                height={14.24}
-              />
-            </button>
-          </form>
-        </div>
-
-        <div className="content__wrapper">
-          {items
-            .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-            .map((item, index) => (
-              <Card
-                key={index}
-                title={item.title}
-                price={item.price}
-                imageUrl={item.imageUrl}
-                onClickFavourite={() => console.log('Add in bookmarks')}
-                onClickAdd={(obj) => onAddToCart(obj)}
-                //onClickAdd={(obj) => onAddToCart(item)}
-              />
-            ))}
-        </div>
-      </div>
+          }
+        />
+      </Routes>
+      <Outlet />
     </div>
   );
 }
