@@ -31,6 +31,9 @@ function App() {
     axios.get('https://d4cf0dbc23d5e51d.mokky.dev/card').then((res) => {
       setCartItems(res.data);
     });
+    axios.get('https://d4cf0dbc23d5e51d.mokky.dev/favorites').then((res) => {
+      setFavorites(res.data);
+    });
   }, []);
 
   const onAddToCart = (obj) => {
@@ -46,8 +49,14 @@ function App() {
   };
 
   const onAddToFavorite = (obj) => {
-    axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favourites', obj);
-    setFavorites((prev) => [...prev, obj]);
+    console.log(obj);
+    if (favorites.find((favObj) => favObj.id === obj.id)) {
+      axios.delete(`https://d4cf0dbc23d5e51d.mokky.dev/favorites/${obj.id}`);
+      setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+    } else {
+      axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favorites', obj);
+      setFavorites((prev) => [...prev, obj]);
+    }
   };
 
   const onChangeSeatchInput = (event) => {
@@ -81,6 +90,10 @@ function App() {
               clearInput={clearInput}
             />
           }
+        />
+        <Route
+          path="/favorites"
+          element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite} />}
         />
       </Routes>
       <Outlet />

@@ -6,7 +6,6 @@ import App from './App';
 import { Home } from './pages/Home';
 import { Favorites } from './pages/Favorites';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -14,7 +13,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/favorites',
-        element: <Favorites />,
       },
     ],
     errorElement: <h1>404 not found</h1>,
