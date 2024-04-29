@@ -13,6 +13,7 @@ function App() {
   const [favorites, setFavorites] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   // You can use Axios https://axios-http.com/
   React.useEffect(() => {
@@ -25,9 +26,11 @@ function App() {
     //     setItems(json);
     //   });
     async function fetchData() {
+      setIsLoading(true);
       const cartResponse = await axios.get('https://d4cf0dbc23d5e51d.mokky.dev/card');
       const favoritesResponse = await axios.get('https://d4cf0dbc23d5e51d.mokky.dev/favorites');
       const itemsResponse = await axios.get('https://d4cf0dbc23d5e51d.mokky.dev/items');
+      setIsLoading(false);
       setCartItems(cartResponse.data);
       setFavorites(favoritesResponse.data);
       setItems(itemsResponse.data);
@@ -99,6 +102,7 @@ function App() {
               onAddToFavorite={onAddToFavorite}
               onAddToCart={onAddToCart}
               clearInput={clearInput}
+              isLoading={isLoading}
             />
           }
         />

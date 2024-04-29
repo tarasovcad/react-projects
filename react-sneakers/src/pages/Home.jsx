@@ -9,7 +9,25 @@ export const Home = ({
   onAddToCart,
   clearInput,
   cartItems,
+  isLoading,
 }) => {
+  const renderItems = () => {
+    const filteredItems = items.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+    return (isLoading ? [...Array(12)] : filteredItems).map((item, index) => (
+      <Card
+        key={index}
+        onFavorite={(obj) => onAddToFavorite(obj)}
+        onClickAdd={(obj) => onAddToCart(obj)}
+        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+        loading={isLoading}
+        {...item}
+
+        //onClickAdd={(obj) => onAddToCart(item)}
+      />
+    ));
+  };
   return (
     <div className="content">
       <div className="content__top">
@@ -45,20 +63,7 @@ export const Home = ({
           </button>
         </form>
       </div>
-      <div className="content__wrapper">
-        {items
-          .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-          .map((item, index) => (
-            <Card
-              key={index}
-              onFavorite={(obj) => onAddToFavorite(obj)}
-              onClickAdd={(obj) => onAddToCart(obj)}
-              added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
-              {...item}
-              //onClickAdd={(obj) => onAddToCart(item)}
-            />
-          ))}
-      </div>
+      <div className="content__wrapper">{renderItems()}</div>
     </div>
   );
 };
