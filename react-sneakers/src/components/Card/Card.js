@@ -9,15 +9,15 @@ export default function Card({
   price,
   onFavorite,
   favorited = false,
+  added = false,
 }) {
-  const [isAdded, setIsAdded] = React.useState(false);
+  const [isAdded, setIsAdded] = React.useState(added);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
 
   const onClickPlus = () => {
-    onClickAdd({ imageUrl, title, price });
+    onClickAdd({ id, imageUrl, title, price });
     setIsAdded(!isAdded);
   };
-
   const onClickFavorite = () => {
     onFavorite({ id, imageUrl, title, price });
     setIsFavorite(!isFavorite);

@@ -19,7 +19,7 @@ export function Drawer({ onClose, onRemove, onRemoveF, items = [] }) {
           <div className="wrap">
             <div className="card__items">
               {items.map((obj) => (
-                <div className="card__item">
+                <div key={obj.id} className="card__item">
                   <img
                     className="card__item-img"
                     src={obj.imageUrl}

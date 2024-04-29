@@ -8,6 +8,7 @@ export const Home = ({
   onAddToFavorite,
   onAddToCart,
   clearInput,
+  cartItems,
 }) => {
   return (
     <div className="content">
@@ -44,7 +45,6 @@ export const Home = ({
           </button>
         </form>
       </div>
-
       <div className="content__wrapper">
         {items
           .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
@@ -53,6 +53,7 @@ export const Home = ({
               key={index}
               onFavorite={(obj) => onAddToFavorite(obj)}
               onClickAdd={(obj) => onAddToCart(obj)}
+              added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
               {...item}
               //onClickAdd={(obj) => onAddToCart(item)}
             />

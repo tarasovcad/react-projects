@@ -24,22 +24,29 @@ function App() {
     //     // console.log(json)
     //     setItems(json);
     //   });
+    async function fetchData() {
+      const cartResponse = await axios.get('https://d4cf0dbc23d5e51d.mokky.dev/card');
+      const favoritesResponse = await axios.get('https://d4cf0dbc23d5e51d.mokky.dev/favorites');
+      const itemsResponse = await axios.get('https://d4cf0dbc23d5e51d.mokky.dev/items');
+      setCartItems(cartResponse.data);
+      setFavorites(favoritesResponse.data);
+      setItems(itemsResponse.data);
+    }
 
-    axios.get('https://d4cf0dbc23d5e51d.mokky.dev/items').then((res) => {
-      setItems(res.data);
-    });
-    axios.get('https://d4cf0dbc23d5e51d.mokky.dev/card').then((res) => {
-      setCartItems(res.data);
-    });
-    axios.get('https://d4cf0dbc23d5e51d.mokky.dev/favorites').then((res) => {
-      setFavorites(res.data);
-    });
+    fetchData();
   }, []);
 
   const onAddToCart = (obj) => {
-    axios.post('https://d4cf0dbc23d5e51d.mokky.dev/card', obj);
-    // setCartItems([...cartItems, obj]);
-    setCartItems((prev) => [...prev, obj]);
+    if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      axios.delete(`https://d4cf0dbc23d5e51d.mokky.dev/card/${obj.id}`);
+      setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+    } else {
+      axios.post('https://d4cf0dbc23d5e51d.mokky.dev/card', obj);
+      setCartItems((prev) => [...prev, obj]);
+    }
+
+    // try {
+    // } catch (error) {}
   };
 
   const onRemoveItem = (id) => {
@@ -49,13 +56,16 @@ function App() {
   };
 
   const onAddToFavorite = async (obj) => {
-    console.log(obj);
-    if (favorites.find((favObj) => favObj.id === obj.id)) {
-      axios.delete(`https://d4cf0dbc23d5e51d.mokky.dev/favorites/${obj.id}`);
-      setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
-    } else {
-      const { data } = await axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favorites', obj);
-      setFavorites((prev) => [...prev, data]);
+    try {
+      if (favorites.find((favObj) => favObj.id === obj.id)) {
+        axios.delete(`https://d4cf0dbc23d5e51d.mokky.dev/favorites/${obj.id}`);
+        setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+      } else {
+        const { data } = await axios.post('https://d4cf0dbc23d5e51d.mokky.dev/favorites', obj);
+        setFavorites((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert('Error happened: ' + error);
     }
   };
 
@@ -83,6 +93,7 @@ function App() {
             <Home
               onChangeSeatchInput={onChangeSeatchInput}
               items={items}
+              cartItems={cartItems}
               setSearchValue={setSearchValue}
               searchValue={searchValue}
               onAddToFavorite={onAddToFavorite}
