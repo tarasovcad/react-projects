@@ -1,5 +1,14 @@
+import React from 'react';
+import { Info } from './Info';
+import AppContext from '../context';
 export function Drawer({ onClose, onRemove, items = [] }) {
-  // console.log(props)
+  const { setCartItems } = React.useContext(AppContext);
+  const [isOrderCompleted, setIsOrderCompleted] = React.useState(false);
+
+  const onClickOrder = () => {
+    setIsOrderCompleted(true);
+    setCartItems([]);
+  };
   return (
     <div className="overlay">
       <div className="drawer">
@@ -56,7 +65,7 @@ export function Drawer({ onClose, onRemove, items = [] }) {
                   <span className="cart-total__price">1074 $</span>
                 </li>
               </ul>
-              <button className="cart-total__buton">
+              <button className="cart-total__buton" onClick={onClickOrder}>
                 <span className="cart-total__button-text">Order</span>
                 <img
                   className="cart-total__button-img"
@@ -69,21 +78,15 @@ export function Drawer({ onClose, onRemove, items = [] }) {
             </div>
           </div>
         ) : (
-          <div className="cart__empty">
-            <img className="cart__empty-img" src="/img/empty.png" alt="empty" />
-            <h2 className="cart__empty-title">The cart is empty</h2>
-            <p className="cart__empty-text">Add at least one pair of sneakers to place an order.</p>
-            <button className="cart__empty-button" onClick={onClose}>
-              <img
-                className="cart__empty-buttonImg"
-                src="/img/arrow.svg"
-                alt="arrow"
-                width={14}
-                height={12}
-              />
-              Go back
-            </button>
-          </div>
+          <Info
+            title={isOrderCompleted ? 'The order has been placed!' : 'The cart is empty'}
+            description={
+              isOrderCompleted
+                ? 'Your order #18 will be delivered by courier soon'
+                : 'Add at least one pair of sneakers to place an order.'
+            }
+            image={isOrderCompleted ? '/img/order-completed.svg' : '/img/empty.png'}
+          />
         )}
       </div>
     </div>
