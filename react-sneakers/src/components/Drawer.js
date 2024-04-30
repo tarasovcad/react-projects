@@ -1,13 +1,35 @@
 import React from 'react';
 import { Info } from './Info';
 import AppContext from '../context';
-export function Drawer({ onClose, onRemove, items = [] }) {
-  const { setCartItems } = React.useContext(AppContext);
-  const [isOrderCompleted, setIsOrderCompleted] = React.useState(false);
+import axios from 'axios';
 
-  const onClickOrder = () => {
-    setIsOrderCompleted(true);
-    setCartItems([]);
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export function Drawer({ onClose, onRemove, items = [] }) {
+  const { cartItems, setCartItems } = React.useContext(AppContext);
+  const [orderId, setOrderId] = React.useState(null);
+  const [isOrderCompleted, setIsOrderCompleted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const onClickOrder = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.post('https://d4cf0dbc23d5e51d.mokky.dev/orders', {
+        items: cartItems,
+      });
+
+      setOrderId(data.id);
+      setIsOrderCompleted(true);
+      setCartItems([]);
+
+      for (let i = 0; i < cartItems.length; i++) {
+        const item = cartItems[i];
+        await axios.delete('https://d4cf0dbc23d5e51d.mokky.dev/card' + item.id);
+        await delay(10000);
+      }
+    } catch (error) {
+      alert('Error while making an order: ' + error.message);
+    }
+    setIsLoading(false);
   };
   return (
     <div className="overlay">
@@ -65,7 +87,7 @@ export function Drawer({ onClose, onRemove, items = [] }) {
                   <span className="cart-total__price">1074 $</span>
                 </li>
               </ul>
-              <button className="cart-total__buton" onClick={onClickOrder}>
+              <button disabled={isLoading} className="cart-total__buton" onClick={onClickOrder}>
                 <span className="cart-total__button-text">Order</span>
                 <img
                   className="cart-total__button-img"
@@ -82,7 +104,7 @@ export function Drawer({ onClose, onRemove, items = [] }) {
             title={isOrderCompleted ? 'The order has been placed!' : 'The cart is empty'}
             description={
               isOrderCompleted
-                ? 'Your order #18 will be delivered by courier soon'
+                ? `Your order #${orderId} will be delivered by courier soon`
                 : 'Add at least one pair of sneakers to place an order.'
             }
             image={isOrderCompleted ? '/img/order-completed.svg' : '/img/empty.png'}

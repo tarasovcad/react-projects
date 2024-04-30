@@ -269,6 +269,10 @@ p {
         transform: translateX(5px);
       }
     }
+    &:disabled {
+      background-color: #bebebe !important;
+      cursor: default;
+    }
     &:active {
       background-color: darken(#9dd458, 10%);
     }
