@@ -1,4 +1,4 @@
-export function Drawer({ onClose, onRemove, onRemoveF, items = [] }) {
+export function Drawer({ onClose, onRemove, items = [] }) {
   // console.log(props)
   return (
     <div className="overlay">

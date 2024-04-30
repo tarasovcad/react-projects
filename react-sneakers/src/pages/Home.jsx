@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../components/Card/Card';
+
 export const Home = ({
   onChangeSeatchInput,
   items,
@@ -8,7 +9,6 @@ export const Home = ({
   onAddToFavorite,
   onAddToCart,
   clearInput,
-  cartItems,
   isLoading,
 }) => {
   const renderItems = () => {
@@ -20,7 +20,7 @@ export const Home = ({
         key={index}
         onFavorite={(obj) => onAddToFavorite(obj)}
         onClickAdd={(obj) => onAddToCart(obj)}
-        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+        //added={isItemAdded(item && item.id)}
         loading={isLoading}
         {...item}
 
