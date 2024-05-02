@@ -8,13 +8,71 @@ export const Cart = () => {
   const [cart, setCart] = React.useState(data);
 
   const deleteProducts = (id) => {
-    console.log('deleteProducts', id);
     setCart((cart) => {
-      return cart.filter((product) => product.id!== id);
+      return cart.filter((product) => product.id !== id);
+    });
+  };
+
+  const increase = (id) => {
+    //console.log('increase', id);
+    setCart((cart) => {
+      return cart.map((product) => {
+        if (product.id === id) {
+          return {
+            ...product,
+            count: ++product.count,
+            priceTotal: product.count * product.price,
+          };
+        } else {
+          return product;
+        }
+      });
+    });
+  };
+  const decrease = (id) => {
+    //console.log('decrease', id);
+    setCart((cart) => {
+      return cart.map((product) => {
+        if (product.id === id) {
+          const newCount = product.count - 1 > 1 ? product.count - 1 : 1;
+          return {
+            ...product,
+            count: newCount,
+            priceTotal: newCount * product.price,
+          };
+        } else {
+          return product;
+        }
+      });
+    });
+  };
+
+  const changeValue = (id, value) => {
+    setCart((cart) => {
+      return cart.map((product) => {
+        if (product.id === id) {
+          return {
+            ...product,
+            count: value,
+            priceTotal: value * product.price,
+          };
+        } else {
+          return product;
+        }
+      });
     });
   };
   const products = cart.map((product) => {
-    return <Product product={product} key={product.id} deleteProducts={deleteProducts} />;
+    return (
+      <Product
+        product={product}
+        key={product.id}
+        deleteProducts={deleteProducts}
+        increase={increase}
+        decrease={decrease}
+        changeValue={changeValue}
+      />
+    );
   });
   return (
     <section className="cart">
