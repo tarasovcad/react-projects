@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CartHeader } from '../CartHeader/CartHeader';
 import { CartFooter } from '../CartFooter/CartFooter';
 import { Product } from '../Product/Product';
@@ -6,6 +6,25 @@ import data from './../../data';
 
 export const Cart = () => {
   const [cart, setCart] = React.useState(data);
+  const [total, setTotal] = useState({
+    price: cart.reduce((prev, curr) => {
+      return prev + curr.priceTotal;
+    }, 0),
+    count: cart.reduce((prev, curr) => {
+      return prev + curr.count;
+    }, 0),
+  });
+
+  useEffect(() => {
+    setTotal({
+      price: cart.reduce((prev, curr) => {
+        return prev + curr.priceTotal;
+      }, 0),
+      count: cart.reduce((prev, curr) => {
+        return prev + curr.count;
+      }, 0),
+    });
+  }, [cart]);
 
   const deleteProducts = (id) => {
     setCart((cart) => {
@@ -78,7 +97,7 @@ export const Cart = () => {
     <section className="cart">
       <CartHeader />
       {products}
-      <CartFooter />
+      <CartFooter total={total} />
     </section>
   );
 };

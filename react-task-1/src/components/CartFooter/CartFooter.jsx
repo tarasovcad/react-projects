@@ -1,11 +1,12 @@
 import './style.scss';
 import React from 'react';
 
-export const CartFooter = () => {
+export const CartFooter = ({ total }) => {
+  const { count, price } = total;
   return (
     <footer className="cart-footer">
-      <div className="cart-footer__count">3 единицы</div>
-      <div className="cart-footer__price">329 000 $</div>
+      <div className="cart-footer__count">{count} items</div>
+      <div className="cart-footer__price">{price} $</div>
     </footer>
   );
 };
