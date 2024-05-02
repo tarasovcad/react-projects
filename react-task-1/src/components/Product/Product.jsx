@@ -4,7 +4,7 @@ import './style.scss';
 
 import React from 'react';
 
-export const Product = ({ product }) => {
+export const Product = ({ product, deleteProducts }) => {
   const { img, title, price, count, id } = product;
   console.log(product, 'Product');
   return (
@@ -16,7 +16,7 @@ export const Product = ({ product }) => {
       <div className="product__count">{/* <Count /> */}</div>
       <div className="product__price">{price} руб.</div>
       <div className="product__controls">
-        <ButtonDelete />
+        <ButtonDelete deleteProducts={deleteProducts} id={id} />
       </div>
     </section>
   );
