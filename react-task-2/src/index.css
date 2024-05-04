@@ -1,81 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
 body {
-  background-color: #ffff;
-  color: #222;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.wrapper {
-  width: 1280px;
-  margin: 50px auto;
-}
-
-header .logo {
-  font-weight: 600;
-  font-size: 20px;
-}
-header ul.nav {
-  float: right;
-  list-style: none;
-  display: flex;
-}
-
-header ul.nav li a {
-  margin-left: 25px;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-  transition: all 0.5s ease-in;
-}
-
-header ul.nav li a:hover {
-  text-decoration: underline;
-  opacity: 0.5;
-}
-
-header .presentation {
-  position: relative;
-  margin: 50px 0;
-  background: url(./img/chair.jpg);
-  width: 100%;
-  height: 500px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-blend-mode: multiply;
-  background-color: #bcbcbc;
-}
-
-header .presentation::after {
-  content: 'Best furniture for your house';
-  position: absolute;
-  top: 100px;
-  left: 50px;
-  width: 300px;
-  color: white;
-  font-size: 40px;
-  font-weight: 600;
-}
-
-header .presentation::before {
-  content: 'for best prices';
-  position: absolute;
-  top: 210px;
-  left: 50px;
-  width: 300px;
-  color: white;
-  font-size: 18px;
-  font-weight: 300;
-}
-
-footer {
-  text-align: center;
-  margin-top: 10px;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
