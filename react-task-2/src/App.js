@@ -1,7 +1,12 @@
+import { Header } from './components/Header';
+
+import { Footer } from './components/Footer';
+import '../src/index.css';   
 function App() {
   return (
-    <div>
-      <h2>test</h2>
+    <div className="wrapper">
+      <Header />
+      <Footer />
     </div>
   );
 }
