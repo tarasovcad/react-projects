@@ -1,6 +1,7 @@
 import React from 'react';
 import { PRODUCTS } from '../../products';
 import { Product } from './Product';
+import './shop.css';
 
 export const Shop = () => {
   return (
@@ -8,6 +9,7 @@ export const Shop = () => {
       <div className="shopTitle">
         <h1>Best shop ever</h1>
       </div>
+
       <div className="products">
         {PRODUCTS.map((product) => (
           <Product data={product} />
