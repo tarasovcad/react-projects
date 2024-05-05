@@ -13,15 +13,18 @@ const getDefaultCart = () => {
 };
 
 export const ShopContextProvider = (props) => {
-  const [cartItems, setcartItems] = useState(getDefaultCart());
+  const [cartItems, setCartItems] = useState(getDefaultCart());
   // addToCart - allows you to add products to the shopping cart. This function takes the item ID 'ItemId' and updates the status of the cartItems, increasing the number of selected items by one.
   const addToCart = (itemId) => {
-    setcartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
   };
   const removeFromCart = (itemId) => {
-    setcartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
-  const contextValue = { cartItems, addToCart, removeFromCart };
+  const updateCartItemCount = (newAmount, itemId) => {
+    setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
+  };
+  const contextValue = { cartItems, addToCart, removeFromCart, updateCartItemCount };
   //console.log(cartItems);
   return <ShopContext.Provider value={contextValue}>{props.children}</ShopContext.Provider>;
 };
