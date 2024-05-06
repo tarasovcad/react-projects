@@ -7,6 +7,8 @@ export const Quiz = () => {
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
   let [lock, setLock] = useState(false);
+  let [score, setScore] = useState(0);
+
   let Option1 = useRef(null);
   let Option2 = useRef(null);
   let Option3 = useRef(null);
@@ -19,11 +21,23 @@ export const Quiz = () => {
       if (ans === question.ans) {
         e.target.classList.add('correct');
         setLock(true);
+        setScore((prev) => prev + 1);
       } else {
         e.target.classList.add('wrong');
         setLock(true);
         optionArray[question.ans - 1].current.classList.add('correct');
       }
+    }
+  };
+  const next = () => {
+    if (lock === true) {
+      setIndex(++index);
+      setQuestion(data[index]);
+      setLock(false);
+      optionArray.map((options) => {
+        options.current.classList.remove('correct', 'wrong');
+        return null;
+      });
     }
   };
   return (
@@ -63,8 +77,10 @@ export const Quiz = () => {
           {question.option4}
         </li>
       </ul>
-      <button>Next</button>
-      <div className="index">1 of 5 questions</div>
+      <button onClick={next}>Next</button>
+      <div className="index">
+        {index + 1} of {data.length} questions
+      </div>
     </div>
   );
 };
