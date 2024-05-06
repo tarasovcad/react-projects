@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
-
+import { resultInitalState } from './constants';
 export const Quiz = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answerIdx, setAnswerIdx] = useState(null);
   const [answer, setAnswer] = useState(null);
+  const [result, setResult] = useState(resultInitalState);
 
   const { question, choices, correctAnswer } = questions[currentQuestion];
   const onAnswerClick = (answer, index) => {
     setAnswerIdx(index);
     if (answer === correctAnswer) {
       setAnswer(true);
-      setCurrentQuestion(currentQuestion + 1);
     } else {
       setAnswer(false);
     }
+  };
+  const onClickNext = () => {
+    setAnswerIdx(null);
+    setResult((prev) =>
+      answer
+        ? { ...prev, score: prev.score + 5, correctAnswers: prev.correctAnswers + 1 }
+        : { ...prev, wrongAnswers: prev.wrongAnswers + 1 },
+    );
+    if (currentQuestion !== questions.length - 1) {
+      setCurrentQuestion((prev) => prev + 1);
+    } else {
+      setCurrentQuestion(0);
+    }
+    console.log(result);
   };
   return (
     <div className="quiz-container">
@@ -23,7 +37,6 @@ export const Quiz = ({ questions }) => {
         <h2>{question}</h2>
         <ul>
           {choices.map((answer, index) => {
-            console.log(answer);
             return (
               <li
                 className={answerIdx === index ? 'selected-answer' : ''}
@@ -34,6 +47,11 @@ export const Quiz = ({ questions }) => {
             );
           })}
         </ul>
+        <div className="footer">
+          <button onClick={onClickNext} disabled={answerIdx === null}>
+            {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+          </button>
+        </div>
       </>
     </div>
   );
