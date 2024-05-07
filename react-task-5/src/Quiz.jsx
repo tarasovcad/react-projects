@@ -5,6 +5,7 @@ export const Quiz = ({ questions }) => {
   const [answerIdx, setAnswerIdx] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [result, setResult] = useState(resultInitalState);
+  const [showResult, setShowResult] = useState(false);
 
   const { question, choices, correctAnswer } = questions[currentQuestion];
   const onAnswerClick = (answer, index) => {
@@ -26,33 +27,57 @@ export const Quiz = ({ questions }) => {
       setCurrentQuestion((prev) => prev + 1);
     } else {
       setCurrentQuestion(0);
+      setShowResult(true);
     }
-    console.log(result);
+    //console.log(result);
+  };
+  const onTryAgain = () => {
+    setResult(resultInitalState);
+    setShowResult(false);
   };
   return (
     <div className="quiz-container">
-      <>
-        <span className="active-question-no">{currentQuestion + 1}</span>
-        <span className="total-question">/{questions.length}</span>
-        <h2>{question}</h2>
-        <ul>
-          {choices.map((answer, index) => {
-            return (
-              <li
-                className={answerIdx === index ? 'selected-answer' : ''}
-                onClick={() => onAnswerClick(answer, index)}
-                key={answer}>
-                {answer}
-              </li>
-            );
-          })}
-        </ul>
-        <div className="footer">
-          <button onClick={onClickNext} disabled={answerIdx === null}>
-            {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-          </button>
+      {!showResult ? (
+        <>
+          <span className="active-question-no">{currentQuestion + 1}</span>
+          <span className="total-question">/{questions.length}</span>
+          <h2>{question}</h2>
+          <ul>
+            {choices.map((answer, index) => {
+              return (
+                <li
+                  className={answerIdx === index ? 'selected-answer' : ''}
+                  onClick={() => onAnswerClick(answer, index)}
+                  key={answer}>
+                  {answer}
+                </li>
+              );
+            })}
+          </ul>
+          <div className="footer">
+            <button onClick={onClickNext} disabled={answerIdx === null}>
+              {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="result">
+          <h3>Result</h3>
+          <p>
+            Total Questions: <span>{questions.length}</span>
+          </p>
+          <p>
+            Total Score: <span>{result.score}</span>
+          </p>
+          <p>
+            Correct Answers: <span>{result.correctAnswers}</span>
+          </p>
+          <p>
+            Wrong Answers: <span>{result.wrongAnswers}</span>
+          </p>
+          <button onClick={onTryAgain}>Try again</button>
         </div>
-      </>
+      )}
     </div>
   );
 };
