@@ -1,6 +1,16 @@
 import React from 'react';
 import { FaClipboard } from 'react-icons/fa';
+import { useForm } from './useForm';
 export const App = () => {
+  const [values, setValues] = useForm({
+    //key: value,
+    length: 6,
+    capital: true,
+    small: true,
+    number: true,
+    symbol: true,
+  });
+
   return (
     <section>
       <div className="container">
@@ -14,7 +24,7 @@ export const App = () => {
           <div>
             <div className="field">
               <label htmlFor="length">Length</label>
-              <input type="number" id="length" min={6} max={10} />
+              <input type="number" id="length" min={6} max={10} name="length" value={values.length} onChange={setValues}/>
             </div>
             <div className="field">
               <label htmlFor="capital">Capital</label>
@@ -33,7 +43,7 @@ export const App = () => {
               <input type="checkbox" id="symbol" />
             </div>
           </div>
-          <button type='submit'>Generate password</button>
+          <button type="submit">Generate password</button>
         </form>
       </div>
     </section>
