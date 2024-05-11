@@ -1,7 +1,7 @@
 import React from 'react';
 import { generatePassword } from '../utils/form';
 export const Form = () => {
-  console.log(generatePassword());
+  console.log(generatePassword(true, true, 41));
   return (
     <form className="password__form">
       <h2>Generate a secure password</h2>
