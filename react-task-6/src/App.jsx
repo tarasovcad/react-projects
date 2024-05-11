@@ -15,27 +15,43 @@ export const App = () => {
   const fieldsArray = [
     {
       field: values.capital,
-      getChar: getRundomCharacter(65, 90),
+      getChar: () => getRundomCharacter(65, 90),
     },
     {
       field: values.small,
-      getChar: getRundomCharacter(97, 122),
+      getChar: () => getRundomCharacter(97, 122),
     },
     {
       field: values.number,
-      getChar: getRundomCharacter(48, 57),
+      getChar: () => getRundomCharacter(48, 57),
     },
     {
       field: values.symbol,
-      getChar: getSpecialChar(),
+      getChar: () => getSpecialChar(),
     },
   ];
   console.log(fieldsArray);
 
+  const handelOnSubmit = (e) => {
+    e.preventDefault();
+    let generatedPassword = '';
+    const checkedFields = fieldsArray.filter(({ field }) => field);
+
+    for (let i = 0; i < values.length; i++) {
+      const index = Math.floor(Math.random() * checkedFields.length);
+      const letter = checkedFields[index].getChar();
+      if (letter) {
+        generatedPassword += letter;
+      }
+    }
+    if (generatedPassword) {
+      setResult(generatedPassword);
+    }
+  };
   return (
     <section>
       <div className="container">
-        <form id="pg-form">
+        <form id="pg-form" onSubmit={handelOnSubmit}>
           <div className="result">
             <input type="text" id="result" placeholder="Min 6 Char" readOnly value={result} />
             <div className="clipboard">
