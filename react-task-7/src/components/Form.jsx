@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { generatePassword } from '../utils/form';
 export const Form = () => {
+  console.log(generatePassword());
   return (
     <form className="password__form">
       <h2>Generate a secure password</h2>
@@ -24,6 +25,7 @@ export const Form = () => {
           <label htmlFor="symbols">Include symbols ?</label>
           <input type="checkbox" name="symbols" />
         </div>
+        <button className="btn">generate</button>
       </div>
     </form>
   );
