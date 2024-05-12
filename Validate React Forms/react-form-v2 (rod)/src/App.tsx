@@ -1,11 +1,19 @@
 import React from 'react';
-import { z } from 'zod';
+import { ZodType, z } from 'zod';
+import { useForm } from 'react-hook-form';
 import './App.css';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-
-
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  age: number;
+  password: string;
+  confirmPassword: string;
+};
 function App() {
-  const schema = z
+  const schema: ZodType<FormData> = z
     .object({
       firstName: z.string().min(2).max(20),
       lastName: z.string().min(2).max(20),
@@ -18,21 +26,26 @@ function App() {
       message: 'Passwords do not match',
       path: ['confirmPassword'],
     });
+
+  const { register, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const submitData = (data: FormData) => {
+    console.log('it worked', data);
+  };
   return (
     <div className="App">
-      <form>
+      <form onSubmit={handleSubmit(submitData)}>
         <label htmlFor="">First Name: </label>
-        <input type="text" />
+        <input type="text" {...register('firstName')} />
         <label htmlFor="">Last Name: </label>
-        <input type="text" />
+        <input type="text" {...register('lastName')} />
         <label htmlFor="">Email: </label>
-        <input type="email" />
+        <input type="email" {...register('email')} />
         <label htmlFor="">Age: </label>
-        <input type="number" />
+        <input type="number" {...register('age')} />
         <label htmlFor="">Password: </label>
-        <input type="password" />
+        <input type="password" {...register('password')} />
         <label htmlFor="">Confirm Password: </label>
-        <input type="password" />
+        <input type="password" {...register('confirmPassword')} />
 
         <input type="submit" />
       </form>
