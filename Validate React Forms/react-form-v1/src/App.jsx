@@ -4,7 +4,7 @@ import './styles.css';
 function App() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     reset,
   } = useForm({
@@ -13,7 +13,7 @@ function App() {
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));
-    reset()
+    reset();
   };
   return (
     <div className="App">
@@ -44,7 +44,7 @@ function App() {
           {errors?.firstName && <p>{errors?.firstName?.message || 'Error'}</p>}
         </div>
 
-        <input type="submit" />
+        <input type="submit" disabled={!isValid} />
       </form>
     </div>
   );
