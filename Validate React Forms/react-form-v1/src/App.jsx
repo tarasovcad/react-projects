@@ -14,11 +14,14 @@ function App() {
   return (
     <div className="App">
       <h1>React Hook Form</h1>
-      <form onSubmit={handleSubmit()}>
-        <label htmlFor="">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label>
           First Name:
-          <input {...register('firstName')} />
+          <input {...register('firstName', { required: 'The field must be filled in' })} />
         </label>
+        <div style={{ height: 40 }}>
+          {errors?.firstName && <p>{errors?.firstName?.message || 'Error'}</p>}
+        </div>
 
         <input type="submit" />
       </form>
