@@ -4,7 +4,7 @@ const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 
 export const basicSchema = yup.object().shape({
-  emial: yup.string().email('Plese enter a valid enter').required('Required'),
+  email: yup.string().email('Plese enter a valid enter').required('Required'),
   age: yup.number().positive().integer().required('Required'),
   password: yup
     .string()
