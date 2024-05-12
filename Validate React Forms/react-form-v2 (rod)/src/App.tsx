@@ -27,7 +27,13 @@ function App() {
       path: ['confirmPassword'],
     });
 
-  const { register, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
   const submitData = (data: FormData) => {
     console.log('it worked', data);
   };
@@ -36,16 +42,22 @@ function App() {
       <form onSubmit={handleSubmit(submitData)}>
         <label htmlFor="">First Name: </label>
         <input type="text" {...register('firstName')} />
+        {errors.firstName && <span>{errors.firstName.message}</span>}
         <label htmlFor="">Last Name: </label>
         <input type="text" {...register('lastName')} />
+        {errors.lastName && <span>{errors.lastName.message}</span>}
         <label htmlFor="">Email: </label>
         <input type="email" {...register('email')} />
+        {errors.email && <span>{errors.email.message}</span>}
         <label htmlFor="">Age: </label>
-        <input type="number" {...register('age')} />
+        <input type="number" {...register('age', { valueAsNumber: true })} />
+        {errors.age && <span>{errors.age.message}</span>}
         <label htmlFor="">Password: </label>
         <input type="password" {...register('password')} />
+        {errors.password && <span>{errors.password.message}</span>}
         <label htmlFor="">Confirm Password: </label>
         <input type="password" {...register('confirmPassword')} />
+        {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
 
         <input type="submit" />
       </form>
