@@ -5,6 +5,10 @@ const url = 'https://6ff6dacd07851b41.mokky.dev/items';
 function App() {
   const [loading, setLoading] = useState(true);
   const [tours, setTours] = useState([]);
+  const removeTour = (id) => {
+    const newTours = tours.filter((tour) => tour.id !== id);
+    setTours(newTours);
+  };
   const fetchTours = async () => {
     setLoading(true);
     try {
@@ -20,9 +24,30 @@ function App() {
   useEffect(() => {
     fetchTours();
   }, []);
+  if (loading) {
+    return (
+      <main>
+        <Loading />
+      </main>
+    );
+  }
+  if (tours.length === 0) {
+    return (
+      <main>
+        <div className="title">
+          <h2>No tours left</h2>
+          <button className="btn" onClick={fetchTours}>
+            Refresh
+          </button>
+        </div>
+      </main>
+    );
+  }
   return (
     <>
-      <main>{loading ? <Loading /> : <Tours tours={tours} />}</main>
+      <main>
+        <Tours removeTour={removeTour} tours={tours} />
+      </main>
     </>
   );
 }
