@@ -11,6 +11,10 @@ export default (state, action) => {
           (transactions) => transactions.id !== action.payload,
         ),
       };
+    case 'ADD_TRANSACTION':
+      return {...state,
+        transactions: [action.payload, ...state.transactions],
+      };
     // default: If the action type doesn't match any cases, the default case returns the current state unchanged.
     default:
       return state;

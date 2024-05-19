@@ -2,12 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 // Inital state
 const InitialState = {
-  transactions: [
-    { id: 1, text: 'Flower', amount: -20 },
-    { id: 2, text: 'Salary', amount: 300 },
-    { id: 3, text: 'Book', amount: -10 },
-    { id: 4, text: 'Camera', amount: 150 },
-  ],
+  transactions: [],
 };
 // A function to create a context, which allows you to share state across multiple components without passing props manually.
 export const GlobalContext = createContext(InitialState);
@@ -21,9 +16,14 @@ export const GlobalProvider = ({ children }) => {
     dispatch({ type: 'DELETE_TRANSACTION', payload: id });
   }
 
+  function addTransaction(transaction) {
+    dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
+  }
+
   return (
     // This component makes the state and actions available to any child components that need them.
-    <GlobalContext.Provider value={{ transactions: state.transactions, deleteTransaction }}>
+    <GlobalContext.Provider
+      value={{ transactions: state.transactions, deleteTransaction, addTransaction }}>
       {children}
     </GlobalContext.Provider>
     // The value prop of the provider is an object containing the current state (transactions) and any actions (like deleteTransaction) you want to provide to the children components.
