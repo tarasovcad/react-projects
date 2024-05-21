@@ -11,7 +11,7 @@ function App() {
     e.preventDefault();
     try {
       let colors = new Values(color).all(10);
-      console.log(colors);
+      setList(colors);
     } catch (e) {
       setError(true);
       console.log(e);
@@ -29,17 +29,17 @@ function App() {
             onChange={(e) => {
               setColor(e.target.value);
             }}
-            className={`${error? 'error' : null}`}
+            className={`${error ? 'error' : null}`}
           />
           <button type="submit" className="btn">
             submit
           </button>
         </form>
-        {/* <SingleColor />
-        <Values /> */}
       </section>
       <section className="colors">
-        <h4>List goes here</h4>
+        {list.map((color, index) => {
+          return <SingleColor key={index} {...color} index={index} />;
+        })}
       </section>
       ;
     </>
