@@ -8,3 +8,4 @@ function rgbToHex(r, g, b) {
 }
 
 export default rgbToHex;
+  
