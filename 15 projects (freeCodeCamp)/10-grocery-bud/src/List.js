@@ -1,7 +1,16 @@
-import React from 'react'
-import { FaEdit, FaTrash } from 'react-icons/fa'
-const List = () => {
-  return <h2>list component</h2>
-}
+import React from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+const List = ({ items }) => {
+  console.log(items);
 
-export default List
+  return (
+    <div className="grocery-list">
+      {items.map((item) => {
+        const { title, id } = item;
+        return <h1>{title}</h1>;
+      })}
+    </div>
+  );
+};
+
+export default List;
