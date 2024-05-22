@@ -18,12 +18,20 @@ function App() {
       // add item to list
       const newItem = { id: new Date().getTime().toString(), title: name };
       setList([...list, newItem]);
-      showAlert(true, 'good job', 'success');
+      showAlert(true, 'item added to the list', 'success');
       setName('');
     }
   };
   const showAlert = (show = false, msg = '', type = '') => {
     setAlert({ show, msg, type });
+  };
+  const clearList = () => {
+    showAlert(true, 'empty list', 'danger');
+    setList([]);
+  };
+  const removeItem = (id) => {
+    showAlert(true, 'item removed', 'danger');
+    setList(list.filter((item) => item.id !== id));
   };
 
   return (
@@ -46,8 +54,8 @@ function App() {
       </form>
       {list.length > 0 && (
         <div className="grocery-container">
-          <List items={list} />
-          <button className="clear-btn" onClick={() => setList([])}>
+          <List items={list} removeItem={removeItem} />
+          <button className="clear-btn" onClick={() => clearList()}>
             clear items
           </button>
         </div>
