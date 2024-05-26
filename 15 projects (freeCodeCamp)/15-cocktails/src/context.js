@@ -8,7 +8,6 @@ const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('a');
   const [cocktails, setCocktails] = useState([]);
-  console.log(cocktails);
   const fetchDrinks = async () => {
     setLoading(true);
     try {
