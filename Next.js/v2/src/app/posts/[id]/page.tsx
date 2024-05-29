@@ -1,4 +1,5 @@
-export default async function Page({params}: {params: {id:string}}) {
+export default async function Page({ params }: { params: { id: string } }) {
+  
   const response = await fetch(`https://dummyjson.com/posts/${params.id}`);
   const data = await response.json();
   const { title, body } = data;
