@@ -1,4 +1,5 @@
 import Form from '@/components/form';
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
 export default async function Page() {
   return (
@@ -7,7 +8,7 @@ export default async function Page() {
 
       <Form />
 
-      {/* <LogoutLink>Log out</LogoutLink> */}
+      <LogoutLink>Log out</LogoutLink>
     </main>
   );
 }
