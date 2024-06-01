@@ -1,6 +1,6 @@
 export interface Post {
   title: string;
-  slag: {
+  slug: {
     current: string;
   };
   publishedAt: string;
