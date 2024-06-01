@@ -1,6 +1,7 @@
 import Header from '@/app/components/Header';
 import { Post } from '@/app/utils/interface';
 import { client } from '@/sanity/lib/client';
+import { PortableText } from 'next-sanity';
 import { Lilita_One, VT323 } from 'next/font/google';
 import Link from 'next/link';
 import React from 'react';
@@ -21,6 +22,7 @@ async function getPost(slug: string) {
         slug,
         publishedAt,
         excerpt,
+        body,
         _id,
         tags[]->{
           _id,
@@ -51,8 +53,23 @@ export default async function page({ params }: Params) {
             </Link>
           ))}
         </div>
-        
+        <div className={richTextStyles}>
+          <PortableText value={post?.body} />
+        </div>
       </div>
     </div>
   );
 }
+const richTextStyles = `
+mt-14
+text-justify
+max-w-2xl
+m-auto
+prose-headings:my-5
+prose-heading:text-2xl
+prose-p:mb-5
+prose-p:leading-7
+prose-li:list-disc
+prose-li:leading-7
+prose-li:ml-4
+`;
