@@ -24,7 +24,7 @@ export const post = {
       name: 'pubslishedAt',
       title: 'Published at',
       type: 'datetime',
-      initialValue: () => new Date().toISOString()
+      initialValue: () => new Date().toISOString(),
     },
     {
       name: 'excerpt',
@@ -39,6 +39,21 @@ export const post = {
       of: [
         { type: 'block' },
         { type: 'image', fields: [{ type: 'text', name: 'alt', title: 'Alt' }] },
+      ],
+    },
+    {
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {
+              type: 'tag',
+            },
+          ],
+        },
       ],
     },
   ],
