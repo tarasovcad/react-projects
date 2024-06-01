@@ -1,8 +1,10 @@
 import Header from '@/app/components/Header';
 import { Post } from '@/app/utils/interface';
 import { client } from '@/sanity/lib/client';
+import { urlForImage } from '@/sanity/lib/image';
 import { PortableText } from 'next-sanity';
 import { Lilita_One, VT323 } from 'next/font/google';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -54,12 +56,21 @@ export default async function page({ params }: Params) {
           ))}
         </div>
         <div className={richTextStyles}>
-          <PortableText value={post?.body} />
+          <PortableText value={post?.body} components={myPortableTextComponents} />
         </div>
       </div>
     </div>
   );
 }
+
+const myPortableTextComponents = {
+  types: {
+    image: ({ value }: any) => (
+      <Image src={urlForImage(value).url()} alt="Post" width={700} height={500} />
+    ),
+  },
+};
+
 const richTextStyles = `
 mt-14
 text-justify
