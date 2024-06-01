@@ -1,3 +1,5 @@
+import { Rule } from 'sanity';
+
 export const post = {
   name: 'post',
   title: 'Post',
@@ -7,6 +9,7 @@ export const post = {
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: (Rule: Rule) => Rule.required().error('Required'),
     },
     {
       name: 'slug',
@@ -15,16 +18,19 @@ export const post = {
       options: {
         source: 'title',
       },
+      validation: (Rule: Rule) => Rule.required().error('Required'),
     },
     {
       name: 'pubslishedAt',
       title: 'Published at',
       type: 'datetime',
+      initialValue: () => new Date().toISOString()
     },
     {
       name: 'excerpt',
       title: 'Excerpt',
       type: 'string',
+      validation: (Rule: Rule) => Rule.max(200).error('Max 200 characters'),
     },
     {
       name: 'body',
