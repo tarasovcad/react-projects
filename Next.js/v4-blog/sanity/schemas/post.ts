@@ -21,7 +21,7 @@ export const post = {
       validation: (Rule: Rule) => Rule.required().error('Required'),
     },
     {
-      name: 'pubslishedAt',
+      name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
