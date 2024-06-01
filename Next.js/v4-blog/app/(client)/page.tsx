@@ -8,11 +8,19 @@ async function getPosts() {
     title,
     slug,
     publishedAt,
-    excerpt
+    excerpt,
+    _id,
+    tags[]->{
+      _id,
+      slug,
+      name
+    }
   }`;
   const data = await client.fetch(query);
   return data;
 }
+export const revalidate = 60; // VERY VERY IMPORTANT
+
 export default async function Home() {
   const posts: Post[] = await getPosts();
   console.log(posts, 'posts');
@@ -25,4 +33,3 @@ export default async function Home() {
     </div>
   );
 }
-
