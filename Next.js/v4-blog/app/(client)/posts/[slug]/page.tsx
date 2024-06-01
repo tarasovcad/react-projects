@@ -38,7 +38,6 @@ async function getPost(slug: string) {
 }
 export default async function page({ params }: Params) {
   const post: Post = await getPost(params.slug);
-  console.log(post);
   return (
     <div>
       <Header title={post?.title} />

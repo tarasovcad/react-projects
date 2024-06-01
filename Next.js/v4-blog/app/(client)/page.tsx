@@ -23,7 +23,6 @@ export const revalidate = 60; // VERY VERY IMPORTANT
 
 export default async function Home() {
   const posts: Post[] = await getPosts();
-  console.log(posts, 'posts');
   return (
     <div>
       <Header title="Articles" />
