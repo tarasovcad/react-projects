@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Fira_Code } from 'next/font/google';
 import './globals.css';
-import Navbar from './components/Navbar';
-import { Provider } from './utils/Provider';
+import Navbar from '../components/Navbar';
+import { Provider } from '../utils/Provider';
 
 const inter = Inter({ subsets: ['latin'] });
 const firaCode = Fira_Code({ subsets: ['latin'] });
