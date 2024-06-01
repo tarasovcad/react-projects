@@ -12,7 +12,7 @@ export interface Post {
 
 export interface Tag {
   name: string;
-  slag: {
+  slug: {
     current: string;
   };
   _id: string;
