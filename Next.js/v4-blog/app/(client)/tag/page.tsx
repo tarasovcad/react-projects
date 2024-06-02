@@ -9,7 +9,8 @@ async function getAllTags() {
     *[_type == 'tag']{
         name,
         slug, 
-        _id
+        _id,
+        'postCount': count(*[_type == 'post' && references('tags', ^._id)])
       }`;
   const tags = client.fetch(query);
   return tags;
@@ -27,7 +28,7 @@ export default async function page() {
           tags?.map((tag) => (
             <Link key={tag?._id} href={`/tag/${tag.slug.current}`}>
               <div className="mb-2 p-2 text-sm lowercase dark:bg-gray-950 border dark:border-gray-900 hover:text-purple-500">
-                #{tag.name}
+                #{tag.name} ({tag?.postCount})
               </div>
             </Link>
           ))}
