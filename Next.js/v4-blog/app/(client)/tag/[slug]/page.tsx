@@ -28,6 +28,8 @@ interface Params {
   };
 }
 
+export const revalidate = 60;
+
 export default async function page({ params }: Params) {
   const posts: Array<Post> = await getPostsByTag(params.slug);
   console.log(posts);

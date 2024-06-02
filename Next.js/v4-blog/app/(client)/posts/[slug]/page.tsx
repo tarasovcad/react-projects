@@ -7,6 +7,7 @@ import { Lilita_One, VT323 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { notFound } from 'next/navigation';
 
 const font = Lilita_One({ weight: '400', subsets: ['latin'] });
 const dateFont = VT323({ weight: '400', subsets: ['latin'] });
@@ -36,8 +37,14 @@ async function getPost(slug: string) {
   const post = await client.fetch(query);
   return post;
 }
+
+export const revalidate = 60
+
 export default async function page({ params }: Params) {
   const post: Post = await getPost(params.slug);
+  if (!post) {
+    notFound();
+  }
   return (
     <div>
       <Header title={post?.title} />
