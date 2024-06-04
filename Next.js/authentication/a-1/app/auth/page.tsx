@@ -3,9 +3,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SignWithGithub from '../components/SignWithGithub';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../utils/auth';
+import { redirect } from 'next/navigation';
 
-
-export default function AuthRoute() {
+export default async function AuthRoute() {
+  /* @ts-ignore */
+  const session = await getServerSession(authOptions);
+  if (session) {
+    return redirect('/');
+  }
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <Card>
@@ -21,7 +28,7 @@ export default function AuthRoute() {
             </div>
             <Button className="mt-4">Login with Email</Button>
 
-            <SignWithGithub/>
+            <SignWithGithub />
           </div>
         </CardContent>
       </Card>
