@@ -7,7 +7,7 @@ export default async function Home() {
   return (
     <div className="p-10">
       <h1>Hello from index page, this is a pubic route</h1>
-      {session ? <h1>yopu are logged in</h1> : <h1>Plese log in to see someting special</h1>}
+      {session ? <h1>you are logged in</h1> : <h1>Plese log in to see someting special</h1>}
     </div>
   );
 }

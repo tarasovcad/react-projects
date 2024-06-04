@@ -1,9 +1,19 @@
-import React from 'react';
-import { Github } from 'lucide-react';
+'use client';
+
 import { Button } from '@/components/ui/button';
-export default function SignWithGithub() {
+import { Github } from 'lucide-react';
+import { signIn } from 'next-auth/react';
+
+export default function SigninWithGithub() {
   return (
-    <Button className="mt-5" variant="secondary">
+    <Button
+      onClick={() =>
+        signIn('github', {
+          callbackUrl: `${window.location.origin}`,
+        })
+      }
+      className="mt-6"
+      variant="secondary">
       Login with Github <Github className="w-4 h-4 ml-4" />
     </Button>
   );
