@@ -5,6 +5,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from './db';
 
 export const authOptions = {
+  /* @ts-ignore */
   adapter: PrismaAdapter(prisma),
   providers: [
     GitHubProvider({
