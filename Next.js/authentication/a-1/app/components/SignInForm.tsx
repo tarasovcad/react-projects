@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { toast } from '@/components/ui/use-toast';
 import { signIn } from 'next-auth/react';
 import React, { useState } from 'react';
 export default function SignInForm() {
@@ -12,6 +13,17 @@ export default function SignInForm() {
       email: email,
       callbackUrl: `${window.location.origin}`,
       redirect: false,
+    });
+    if (!signInResult?.ok) {
+      return toast({
+        title: 'Well this did not work...',
+        description: 'Something went wrong, plese try again',
+        variant: 'destructive',
+      });
+    }
+    return toast({
+      title: 'Check your email',
+      description: 'A magin link has been sent to you',
     });
   }
 
