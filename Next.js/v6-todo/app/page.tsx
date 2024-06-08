@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import addTodo from './actions/addTodo';
+import deleteTodo from './actions/deleteTodo';
 
 const prisma = new PrismaClient();
 
@@ -8,7 +10,7 @@ export default async function Home() {
   return (
     <main className="container mx-auto px-4">
       <h1 className="text-2xl font-bold text-center my-6">Todo List</h1>
-      <form action={'addTodo'} className="mb-4">
+      <form action={addTodo} className="mb-4">
         <input
           name="title" // for actions
           type="text"
@@ -27,7 +29,7 @@ export default async function Home() {
             key={todo.id}
             className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded shadow my-2">
             <span className="text-lg text-black">{todo.title}</span>
-            <form action={'deleteTodo'}>
+            <form action={deleteTodo}>
               <input type="hidden" name="id" id={todo.id} value={todo.id} />
               <button
                 type="submit"
