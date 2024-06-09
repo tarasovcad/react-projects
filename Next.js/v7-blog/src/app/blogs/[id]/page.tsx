@@ -1,3 +1,6 @@
+import Comments from '@/components/Comments';
+import FormComments from '@/components/FormComments';
+
 export default function BlogDetailPage() {
   return (
     <div className="max-w-4xl mx-auto py-8">
@@ -7,6 +10,8 @@ export default function BlogDetailPage() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, asperiores necessitatibus
         harum in porro blanditiis velit minus hic vero odio?
       </div>
+      <Comments />
+      <FormComments />
     </div>
   );
 }
