@@ -1,22 +1,17 @@
+import prisma from '@/lib/db';
 import Link from 'next/link';
 import React from 'react';
 
-const posts = [
-  {
-    id: 1,
-    title: 'Blog POSt 1',
-    content: 'this si',
-    username: 'dsojdf',
-  },
-  {
-    id: 2,
-    title: 'Blog POS123t 1',
-    content: 'th123is si',
-    username: 'dso123jdf',
-  },
-];
-
-export default function BlogsPage() {
+export default async function BlogsPage() {
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      author: true,
+    },
+  });
+  console.log(posts);
   return (
     <div className="max-w-4xl mx-auto py-8">
       <h1 className="text-3xl font-bold mb-4">Blogs</h1>
@@ -24,7 +19,7 @@ export default function BlogsPage() {
         {posts.map((post) => (
           <Link href={`/blogs/${post.id}`} className="bg-white p-4 rounder-md shadow-md">
             <h2 className="text-xl font-bold">{post.title}</h2>
-            <p>Written by: {post.username}</p>
+            <p>Written by: {post.author?.name}</p>
           </Link>
         ))}
       </div>
