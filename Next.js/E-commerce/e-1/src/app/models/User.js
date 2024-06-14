@@ -1,5 +1,5 @@
 import { model, models, Schema } from 'mongoose';
-
+import bcrypt from 'bcryptjs';
 const UserSchema = new Schema(
   {
     name: { type: String },
@@ -10,7 +10,6 @@ const UserSchema = new Schema(
       validate: (pass) => {
         if (!pass?.length || pass.length < 5) {
           new Error('password must be al least 5 characters');
-          return false;
         }
       },
     },
@@ -18,5 +17,11 @@ const UserSchema = new Schema(
   },
   { timestamps: true },
 );
+
+UserSchema.post('validate', function (user) {
+  const notHashedPassport = user.password;
+  const salt = bcrypt.genSaltSync(10);
+  user.password = bcrypt.hashSync(notHashedPassport, salt);
+});
 
 export const User = models?.User || model('User', UserSchema);
