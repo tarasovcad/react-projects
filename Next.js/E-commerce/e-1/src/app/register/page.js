@@ -7,7 +7,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [creatingUser, setCreatingUser] = useState(false);
-  const [useCreated, setUserCreated] = useState(false);
+  const [userCreated, setUserCreated] = useState(false);
   const [error, setError] = useState(false);
 
   async function handleFormSubmit(e) {
@@ -15,7 +15,7 @@ export default function RegisterPage() {
     setCreatingUser(true);
     setError(false);
     setUserCreated(false);
-    const response = fetch('api/register', {
+    const response = await fetch('api/register', {
       // Makes a request to the server using the Fetch API.
       method: 'POST',
       body: JSON.stringify({ email, password }),
@@ -27,12 +27,13 @@ export default function RegisterPage() {
       setError(true);
     }
     setCreatingUser(false);
+    console.log(response);
   }
 
   return (
     <section className="mt-8">
       <h1 className="text-center text-primary text-4xl mb-4">Register</h1>
-      {useCreated && (
+      {userCreated && (
         <div className="my-4 text-center">
           User Created. <br /> Now you can
           <Link className="underline" href={'/login'}>
