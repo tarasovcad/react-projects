@@ -35,7 +35,7 @@ export default function RegisterPage() {
       <h1 className="text-center text-primary text-4xl mb-4">Register</h1>
       {userCreated && (
         <div className="my-4 text-center">
-          User Created. <br /> Now you can
+          User Created. <br /> Now you can{' '}
           <Link className="underline" href={'/login'}>
             Login &raquo;
           </Link>
@@ -70,6 +70,12 @@ export default function RegisterPage() {
           <Image src={'/google.png'} alt={''} width={24} height={24} />
           Login with google
         </button>
+        <div className="text-center my-4 text-gray-500 border-t pt-4">
+          Existing account?{' '}
+          <Link className="underline" href={'/login'}>
+            Login here &raquo;
+          </Link>
+        </div>
       </form>
     </section>
   );
