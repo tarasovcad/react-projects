@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +45,7 @@ export default function RegisterPage() {
       {error && (
         <div className="my-4 text-center">
           An error has occured.. <br />
-          Plese try again later
+          Please try again later
         </div>
       )}
       <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
@@ -66,7 +67,9 @@ export default function RegisterPage() {
           Register
         </button>
         <div className="my-4 text-center text-gray-500">or login with provider</div>
-        <button className="flex gap-4 justify-center">
+        <button
+          className="flex gap-4 justify-center"
+          onClick={() => signIn('google', { callbackUrl: '/' })}>
           <Image src={'/google.png'} alt={''} width={24} height={24} />
           Login with google
         </button>
