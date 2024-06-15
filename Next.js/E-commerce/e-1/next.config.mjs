@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '*.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'e-1.s3.amazonaws.com',
+      },
     ],
   },
 };
