@@ -6,14 +6,15 @@ import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import InfoBox from '../components/layout/InfoBOx';
 import SuccessBox from '../components/layout/SuccessBox';
+import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
   const session = useSession();
   console.log(session);
   const [userName, setUserName] = useState('');
-  const [saved, setSaved] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
+  // const [saved, setSaved] = useState(false);
+  // const [isSaving, setIsSaving] = useState(false);
+  // const [isUploading, setIsUploading] = useState(false);
   const [image, setImage] = useState('');
   const { status } = session;
 
@@ -26,22 +27,34 @@ export default function ProfilePage() {
 
   async function handleProfileInfoUpdate(e) {
     e.preventDefault();
-    setSaved(false);
-    setIsSaving(true);
-    const response = await fetch('/api/profile', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name: userName, image: image }),
+    //setSaved(false);
+    //setIsSaving(true);
+    // toast('Saving');
+    const savingPromise = new Promise(async (resolve, reject) => {
+      const response = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: userName, image: image }),
+      });
+      if (response.ok) resolve();
+      else reject();
     });
-    setIsSaving(false);
-    if (response.ok) {
-      setSaved(true);
-      setTimeout(() => {
-        setSaved(false);
-      }, 5000);
-    }
+    await toast.promise(savingPromise, {
+      loading: 'Saving...',
+      success: 'Saved successfully',
+      error: 'Error saving',
+    });
+
+    //setIsSaving(false);
+    // toast.success('Profile saved!');
+    // if (response.ok) {
+    //   setSaved(true);
+    //   setTimeout(() => {
+    //     setSaved(false);
+    //   }, 5000);
+    // }
   }
 
   async function handleFileChange(e) {
@@ -49,14 +62,32 @@ export default function ProfilePage() {
     if (files?.length === 1) {
       const data = new FormData();
       data.set('file', files[0]);
-      setIsUploading(true);
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: data,
+
+      const UploadPromise = new Promise(async (resolve, reject) => {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: data,
+        });
+        const link = await response.json();
+        setImage(link);
+        if (response.ok) resolve();
+        else reject();
       });
-      const link = await response.json();
-      setImage(link);
-      setIsUploading(false);
+      await toast.promise(UploadPromise, {
+        loading: 'Uploading...',
+        success: 'Uploaded successfully',
+        error: 'Error uploading',
+      });
+      // toast('Uploading...');
+      //setIsUploading(true);
+
+      // if (response.ok) {
+      //   toast.success('Upload compplete!');
+      // } else {
+      //   toast.error('Upload error!');
+      // }
+
+      //setIsUploading(false);
     }
   }
 
@@ -71,9 +102,9 @@ export default function ProfilePage() {
       <h1 className="text-center text-primary text-4xl mb-4">Profile</h1>
 
       <div className="max-w-md mx-auto">
-        {saved && <SuccessBox>Profile saved!</SuccessBox>}
-        {isSaving && <InfoBox>Saving...</InfoBox>}
-        {isUploading && <InfoBox>Uploading...</InfoBox>}
+        {/* {saved && <SuccessBox>Profile saved!</SuccessBox>} */}
+        {/* {isSaving && <InfoBox>Saving...</InfoBox>} */}
+        {/* {isUploading && <InfoBox>Uploading...</InfoBox>} */}
 
         <div className="flex gap-4 items-center">
           <div>
