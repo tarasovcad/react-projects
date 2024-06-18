@@ -10,18 +10,36 @@ import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
   const session = useSession();
-  console.log(session);
+  console.log({ session });
   const [userName, setUserName] = useState('');
   // const [saved, setSaved] = useState(false);
   // const [isSaving, setIsSaving] = useState(false);
   // const [isUploading, setIsUploading] = useState(false);
   const [image, setImage] = useState('');
+
+  const [phone, setPhone] = useState('');
+  const [streetAddress, setStreetAddress] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
   const { status } = session;
 
   useEffect(() => {
-    if (status == 'authenticated') {
-      setUserName(session?.data?.user?.name);
+    if (status === 'authenticated') {
+      setUserName(session.data.user.name);
       setImage(session.data.user.image);
+      fetch('/api/profile').then((response) => {
+        response.json().then((data) => {
+          //setUser(data);
+          //setIsAdmin(data.admin);
+          //setProfileFetched(true);
+          setPhone(data.phone);
+          setStreetAddress(data.streetAddress);
+          setPostalCode(data.postalCode);
+          setCity(data.city);
+          setCountry(data.country);
+        });
+      });
     }
   }, [session, status]);
 
@@ -36,7 +54,15 @@ export default function ProfilePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: userName, image: image }),
+        body: JSON.stringify({
+          name: userName,
+          image,
+          streetAddress,
+          phone,
+          postalCode,
+          city,
+          country,
+        }),
       });
       if (response.ok) resolve();
       else reject();
@@ -106,7 +132,7 @@ export default function ProfilePage() {
         {/* {isSaving && <InfoBox>Saving...</InfoBox>} */}
         {/* {isUploading && <InfoBox>Uploading...</InfoBox>} */}
 
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4">
           <div>
             <div className="p-2 rounder-lg relative max-w-[120px]">
               {image && (
@@ -128,13 +154,52 @@ export default function ProfilePage() {
             </div>
           </div>
           <form className="grow" onSubmit={handleProfileInfoUpdate}>
+            <label>First and last name</label>
             <input
               type="text"
               placeholder="First and last name"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
+            <label>Email</label>
             <input type="email" disabled value={session.data.user.email} placeholder="Email" />
+            <label>Phone</label>
+            <input
+              type="tel"
+              placeholder="Phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <label>Street adress</label>
+            <input
+              type="text"
+              placeholder="Street adress"
+              value={streetAddress}
+              onChange={(e) => setStreetAddress(e.target.value)}
+            />
+            <div className="flex gap-4">
+              <label>Postal code</label>
+              <input
+                type="text"
+                placeholder="Postal Code"
+                value={postalCode}
+                onChange={(e) => setPostalCode(e.target.value)}
+              />
+              <label>City</label>
+              <input
+                type="text"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+            <label>Country</label>
+            <input
+              type="text"
+              placeholder="Country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
             <button type="submit">Submit</button>
           </form>
         </div>
