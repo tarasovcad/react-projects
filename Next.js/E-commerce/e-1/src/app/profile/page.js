@@ -178,20 +178,25 @@ export default function ProfilePage() {
               onChange={(e) => setStreetAddress(e.target.value)}
             />
             <div className="flex gap-4">
-              <label>Postal code</label>
-              <input
-                type="text"
-                placeholder="Postal Code"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-              />
-              <label>City</label>
-              <input
-                type="text"
-                placeholder="City"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
+              <div>
+                {' '}
+                <label>Postal code</label>
+                <input
+                  type="text"
+                  placeholder="Postal Code"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>City</label>
+                <input
+                  type="text"
+                  placeholder="City"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
             </div>
             <label>Country</label>
             <input
