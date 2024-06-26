@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import InfoBox from '../components/layout/InfoBOx';
 import SuccessBox from '../components/layout/SuccessBox';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
+import UserTabs from '../components/layout/UsersTabs';
 
 export default function ProfilePage() {
   const session = useSession();
@@ -22,6 +24,8 @@ export default function ProfilePage() {
   const [postalCode, setPostalCode] = useState('');
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [profileFetched, setProfileFetched] = useState(false);
   const { status } = session;
 
   useEffect(() => {
@@ -38,6 +42,8 @@ export default function ProfilePage() {
           setPostalCode(data.postalCode);
           setCity(data.city);
           setCountry(data.country);
+          setIsAdmin(data.admin);
+          setProfileFetched(true);
         });
       });
     }
@@ -117,7 +123,7 @@ export default function ProfilePage() {
     }
   }
 
-  if (status === 'loading') {
+  if (status === 'loading' || !profileFetched) {
     return 'Loading...';
   }
   if (status === 'unauthenticated') {
@@ -125,8 +131,7 @@ export default function ProfilePage() {
   }
   return (
     <section className="mt-8">
-      <h1 className="text-center text-primary text-4xl mb-4">Profile</h1>
-
+      <UserTabs isAdmin={isAdmin} />
       <div className="max-w-md mx-auto">
         {/* {saved && <SuccessBox>Profile saved!</SuccessBox>} */}
         {/* {isSaving && <InfoBox>Saving...</InfoBox>} */}
