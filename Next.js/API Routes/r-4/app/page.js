@@ -1,6 +1,9 @@
 import React from 'react';
 import { addGrudge } from './actions/createGrudge';
-export default function page() {
+import { sql } from '@vercel/postgres';
+export default async function page() {
+  const { rows } = await sql`SELECT * from Grudges`;
+  
   return (
     <div className="bg-gray-800 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-700 rounded-xl shadow-md">
@@ -21,6 +24,13 @@ export default function page() {
             Add Grudge
           </button>
         </form>
+        <div className="mt-4 p-4">
+          {rows.map((grudge, index) => (
+            <div key={index} className="text-white bg-gray-600 p-2 rounded-md mt-2 shadow">
+              {grudge.name}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
