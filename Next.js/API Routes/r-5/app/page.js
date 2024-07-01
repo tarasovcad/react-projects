@@ -5,6 +5,7 @@ import React from 'react';
 
 export default function page() {
   connectMongoDB();
+
   return (
     <div className="bg-gray-800 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-700 rounded-xl shadow-md">
