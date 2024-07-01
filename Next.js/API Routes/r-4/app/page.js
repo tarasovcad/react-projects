@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { addGrudge } from './actions/createGrudge';
 export default function page() {
   return (
     <div className="bg-gray-800 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-700 rounded-xl shadow-md">
-        <form action={'addGrudge'} className="space-y-4 p-4">
+        <form action={addGrudge} className="space-y-4 p-4">
           <label htmlFor="grudgeName" className="block text-sm font-medium text-gray-300">
             Name of Grudge
           </label>
