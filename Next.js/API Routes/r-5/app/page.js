@@ -1,22 +1,18 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import connectMongoDB from '@/libs/connect';
 import React from 'react';
+import { addTodoAction } from './actions/addTodoList';
 
 export default function page() {
-  connectMongoDB();
-
   return (
     <div className="bg-gray-800 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-700 rounded-xl shadow-md">
-        <form className="space-y-3 p-4">
+        <form className="space-y-3 p-4" action={addTodoAction}>
           <label htmlFor="todo" className="block text-sm font-medium text-gray-300">
             Name of TO-DO
           </label>
           <input
             type="text"
-            name="todo"
-            id="todo"
+            name="title"
+            id="title"
             placeholder="Enter a TODO"
             className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 mb-2"
           />
@@ -24,8 +20,8 @@ export default function page() {
             Name of Description
           </label>
           <input
-            type="text"
-            name="todo"
+            type="description"
+            name="description"
             id="todo"
             placeholder="Enter a Description"
             className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
