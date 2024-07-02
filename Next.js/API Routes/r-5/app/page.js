@@ -1,7 +1,13 @@
 import React from 'react';
 import { addTodoAction } from './actions/addTodoList';
-
-export default function page() {
+import prisma from '@/lib/prisma';
+export default async function page() {
+  const list = await prisma.todo.findMany({
+    orderBy: {
+      id: 'desc',
+    },
+  });
+  console.log(list.id);
   return (
     <div className="bg-gray-800 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-700 rounded-xl shadow-md">
@@ -32,6 +38,16 @@ export default function page() {
             Add TODO
           </button>
         </form>
+        {list.map((item, index) => (
+          <div className="mt-4 p-4">
+            <div className="text-white bg-gray-600 p-2 rounded-md mt-2 shadow">
+              Name: {item.title}
+            </div>
+            <div className="text-white bg-gray-600 p-2 rounded-md mt-2 shadow">
+              Description: {item.description}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

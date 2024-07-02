@@ -13,5 +13,5 @@ export async function addTodoAction(formData) {
     },
   });
 
-  ///revalidatePath('/');
+  revalidatePath('/');
 }
