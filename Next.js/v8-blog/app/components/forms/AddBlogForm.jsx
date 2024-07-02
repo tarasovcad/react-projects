@@ -3,12 +3,19 @@
 import React from 'react';
 import Button from './../../ui/Button';
 import { addBlog } from './../../../actions/actions';
+import { useRef } from 'react';
 export const AddBlogForm = () => {
+  const ref = useRef();
   const addBlogHandler = async (formData) => {
     await addBlog(formData);
+    // refresh the form
+    ref?.current.reset();
   };
   return (
-    <form className="max-w-md mx-auto mt-8 p-8 bg-white rounded shadow-md" action={addBlogHandler}>
+    <form
+      ref={ref}
+      className="max-w-md mx-auto mt-8 p-8 bg-white rounded shadow-md"
+      action={addBlogHandler}>
       <h2 className="text-2xl text-green-500 font-semibold mb-6">Create a New Blog Post</h2>
 
       <div className="mb-4">

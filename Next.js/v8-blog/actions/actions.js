@@ -4,6 +4,15 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 const prisma = new PrismaClient();
 
+export const fetchBlogs = async () => {
+  const blogs = await prisma.blog.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  return blogs;
+};
+
 export const addBlog = async (formData) => {
   // collect info from form using formData
   const imageUrl = formData.get('imageUrl');
