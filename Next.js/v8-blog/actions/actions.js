@@ -13,6 +13,15 @@ export const fetchBlogs = async () => {
   return blogs;
 };
 
+export const fetchSingleBlog = async (id) => {
+  const blogs = await prisma.blog.findFirst({
+    where: {
+      id: id,
+    },
+  });
+  return blogs
+};
+
 export const addBlog = async (formData) => {
   // collect info from form using formData
   const imageUrl = formData.get('imageUrl');
