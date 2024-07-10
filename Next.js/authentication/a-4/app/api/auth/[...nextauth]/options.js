@@ -23,6 +23,7 @@ export const options = {
     GoggleProvider({
       profile(profile) {
         console.log('profile goggle: ', profile);
+        let userRole = 'Google User';
 
         // return { role: profile.role ?? 'user' };
         return {
@@ -31,8 +32,8 @@ export const options = {
           role: userRole,
         };
       },
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
   callbacks: {
