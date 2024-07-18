@@ -3,10 +3,10 @@ import React from 'react';
 import { authOptions } from '../app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { signOut } from 'next-auth/react';
-
+import Image from 'next/image';
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session);
+
   return (
     <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -22,8 +22,13 @@ export const Navbar = async () => {
             Home
           </Link>
         </div>
-        <div>
+        <div className="flex">
           <span className="mr-4">{session?.user?.email}</span>
+          <span className="mr-4">{session?.user?.role}</span>
+          {session && (
+            <Image src={session?.user?.image} width={20} height={20} alt="logo" className="mr-2" />
+          )}
+
           {session ? (
             <Link
               href="/api/auth/signout?callbackUrl=/"
