@@ -5,7 +5,10 @@ export default withAuth(
   function middleware(req) {
     const { pathname } = req.nextUrl;
     const { token } = req.nextauth;
-    console.log(req.nextauth.token);
+
+    if (!token) {
+      return NextResponse.redirect(new URL('/signIn', req.url));
+    }
 
     if (pathname.startsWith('/dashboard') && token?.role !== 'Admin') {
       return NextResponse.redirect(new URL('/', req.url));
@@ -14,6 +17,9 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token }) => !!token,
+    },
+    pages: {
+      signIn: '/signIn',
     },
   },
 );
