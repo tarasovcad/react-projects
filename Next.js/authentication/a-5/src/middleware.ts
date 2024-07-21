@@ -20,6 +20,7 @@ export default withAuth(
     },
     pages: {
       signIn: '/signIn',
+      signOut: '/signout',
     },
   },
 );

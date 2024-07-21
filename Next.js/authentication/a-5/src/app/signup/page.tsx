@@ -16,27 +16,33 @@ export default function SignUp() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-4xl font-bold mb-2">Sign In</h1>
+      <h1 className="text-4xl font-bold mb-2">Sign Up</h1>
       <p className="text-xl mb-6">
-        {`Don't have an account? ${''}`}
-        <Link className="text-blue-500 underline" href={'/signup'}>
-          Sign up.
+        {`Already have an account? ${''}`}
+        <Link className="text-blue-500 underline" href={'/signin'}>
+          Log in.
         </Link>
       </p>
       <form>
         <div className="grid w-full items-center gap-1.5 min-w-[400px]">
+          <div className="flex gap-2">
+            <div>
+              <Label htmlFor="name">First Name</Label>
+              <Input type="text" id="firstname" placeholder="Joe" />
+            </div>
+            <div>
+              <Label htmlFor="name">Last Name</Label>
+              <Input type="text" id="lastname" placeholder="Biden" />
+            </div>
+          </div>
           <Label htmlFor="email">Email</Label>
           <Input type="email" id="email" placeholder="Email" />
-
-          <div className="flex align-middle justify-between mt-2">
-            <Label htmlFor="password">Password</Label>
-            <Link className="text-blue-500 underline text-sm" href={'/'}>
-              Forgot Password?
-            </Link>
-          </div>
+          <Label htmlFor="password" className="mt-2">
+            Password
+          </Label>
           <Input type="password" id="password" placeholder="•••••" />
         </div>
-        <Button variant="default">Continue</Button>
+        <Button variant="default">Create account</Button>
       </form>
       <div className="flex flex-col space-y-4 mt-4">
         <button
@@ -49,7 +55,7 @@ export default function SignUp() {
             width={24}
             height={24}
           />
-          Login with GitHub
+          Sign up with GitHub
         </button>
         <button
           onClick={() => signIn('google', { callbackUrl })}
@@ -61,7 +67,7 @@ export default function SignUp() {
             width={24}
             height={24}
           />
-          Login with Google
+          Sign up with Google
         </button>
       </div>
     </div>
