@@ -12,7 +12,7 @@ export default async function Navbar() {
   const session = await getServerSession(authOptions);
 
   const { name, email, image, role } = session?.user || {};
-
+  console.log(session);
   return (
     <header className="w-full bg-background shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
@@ -22,7 +22,7 @@ export default async function Navbar() {
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           <Link
-            href="#"
+            href="/"
             className="text-sm font-medium hover:underline transition-all"
             prefetch={false}>
             Home
@@ -37,10 +37,10 @@ export default async function Navbar() {
             Services
           </Link>
           <Link
-            href="#"
+            href="/dashboard"
             className="text-sm font-medium hover:underline transition-all"
             prefetch={false}>
-            Contact
+            Dashboard
           </Link>
         </nav>
         <div className="flex items-center gap-4">
