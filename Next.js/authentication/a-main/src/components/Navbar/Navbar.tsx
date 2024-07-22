@@ -1,14 +1,18 @@
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-export default function Navbar() {
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
+import { DropdownMenuComponent } from './DropdownMenu';
+import { type IconProps } from '@/types/types';
+
+export default async function Navbar() {
+  const session = await getServerSession(authOptions);
+
+  const { name, email, image, role } = session?.user || {};
+
   return (
     <header className="w-full bg-background shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
@@ -41,29 +45,27 @@ export default function Navbar() {
         </nav>
         <div className="flex items-center gap-4">
           <DropdownMenu>
+            {session && <h2 className="text-base">{email}</h2>}
             <DropdownMenuTrigger asChild>
               <Avatar className="h-9 w-9 cursor-pointer">
-                <AvatarImage src="/placeholder-user.jpg" />
+                {session && <AvatarImage src={image} />}
                 <AvatarFallback>JP</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>My Account</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
+            <DropdownMenuComponent />
           </DropdownMenu>
-          <Link href={'/signin'}>
-            <Button variant="outline">Sign In</Button>
-          </Link>
+          {!session && (
+            <Link href={'/signin'}>
+              <Button variant="outline">Sign In</Button>
+            </Link>
+          )}
         </div>
       </div>
     </header>
   );
 }
 
-function MountainIcon(props) {
+function MountainIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -81,7 +83,7 @@ function MountainIcon(props) {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: IconProps) {
   return (
     <svg
       {...props}

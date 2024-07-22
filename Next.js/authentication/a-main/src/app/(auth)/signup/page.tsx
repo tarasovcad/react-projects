@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
+import { type IconProps } from '@/types/types';
 
 export default function SignUp() {
   return (
@@ -60,7 +61,7 @@ export default function SignUp() {
   );
 }
 
-function ChromeIcon(props) {
+function ChromeIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -82,7 +83,7 @@ function ChromeIcon(props) {
   );
 }
 
-function GithubIcon(props) {
+function GithubIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -101,7 +102,7 @@ function GithubIcon(props) {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: IconProps) {
   return (
     <svg
       {...props}

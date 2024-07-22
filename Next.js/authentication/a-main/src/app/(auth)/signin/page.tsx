@@ -1,10 +1,15 @@
+'use client';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
-
+import { useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { type IconProps } from '@/types/types';
 export default function SignIn() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   return (
     <div className="mx-auto max-w-md space-y-6 py-12">
       <div className="space-y-2 text-center">
@@ -27,11 +32,17 @@ export default function SignIn() {
         </form>
         <Separator className="my-4" />
         <div className="space-y-2">
-          <Button variant="outline" className="w-full">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signIn('github', { callbackUrl })}>
             <GithubIcon className="mr-2 h-4 w-4" />
             Sign in with GitHub
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signIn('google', { callbackUrl })}>
             <ChromeIcon className="mr-2 h-4 w-4" />
             Sign in with Google
           </Button>
@@ -47,7 +58,7 @@ export default function SignIn() {
   );
 }
 
-function ChromeIcon(props) {
+function ChromeIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -69,7 +80,7 @@ function ChromeIcon(props) {
   );
 }
 
-function GithubIcon(props) {
+function GithubIcon(props: IconProps) {
   return (
     <svg
       {...props}
@@ -88,7 +99,7 @@ function GithubIcon(props) {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: IconProps) {
   return (
     <svg
       {...props}
