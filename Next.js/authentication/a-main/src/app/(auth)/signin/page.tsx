@@ -4,12 +4,39 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { type IconProps } from '@/types/types';
+import { useState } from 'react';
 export default function SignIn() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result.error) {
+        setError('Invalid email or password');
+        console.log(result?.error);
+      } else {
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Sign in error:', error);
+      setError('An error occurred during sign in');
+    }
+  };
   return (
     <div className="mx-auto max-w-md space-y-6 py-12">
       <div className="space-y-2 text-center">
@@ -17,14 +44,25 @@ export default function SignIn() {
         <p className="text-muted-foreground">Enter your credentials to access your account.</p>
       </div>
       <div className="space-y-4">
-        <form className="grid gap-4">
+        <form className="grid gap-4" onSubmit={handleSubmit}>
           <div className="grid gap-2">
-            <Label htmlFor="username">Username</Label>
-            <Input id="username" placeholder="Enter your username" required />
+            <Label htmlFor="Email">Email</Label>
+            <Input
+              id="email"
+              placeholder="Enter your email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" placeholder="Enter your password" required />
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <Button type="submit" className="w-full">
             Sign In

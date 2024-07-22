@@ -4,9 +4,10 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/options';
+
 import { DropdownMenuComponent } from './DropdownMenu';
 import { type IconProps } from '@/types/types';
+import { authOptions } from '@/lib/auth';
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
