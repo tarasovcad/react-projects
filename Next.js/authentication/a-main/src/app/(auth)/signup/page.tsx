@@ -1,11 +1,34 @@
+'use client';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { type IconProps } from '@/types/types';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
+  const router = useRouter();
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const { username, email, password } = event.target.elements;
+    const response = await fetch('/api/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      }),
+    });
+    if (response.ok) {
+      router.push('/signin');
+    } else {
+      console.error('Registration failed');
+    }
+  };
   return (
     <div className="mx-auto max-w-md space-y-6 py-12">
       <div className="space-y-2 text-center">
@@ -13,7 +36,7 @@ export default function SignUp() {
         <p className="text-muted-foreground">Sign in to your account or create a new one.</p>
       </div>
       <div className="space-y-4">
-        <form className="grid gap-4">
+        <form className="grid gap-4" onSubmit={onSubmit}>
           <div className="grid gap-2">
             <Label htmlFor="username">Username</Label>
             <Input id="username" placeholder="Enter your username" required />
