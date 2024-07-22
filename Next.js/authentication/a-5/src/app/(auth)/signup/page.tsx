@@ -25,22 +25,14 @@ export default function SignUp() {
       </p>
       <form>
         <div className="grid w-full items-center gap-1.5 min-w-[400px]">
-          <div className="flex gap-2">
-            <div>
-              <Label htmlFor="name">First Name</Label>
-              <Input type="text" id="firstname" placeholder="Joe" />
-            </div>
-            <div>
-              <Label htmlFor="name">Last Name</Label>
-              <Input type="text" id="lastname" placeholder="Biden" />
-            </div>
-          </div>
+          <Label htmlFor="username">Username</Label>
+          <Input type="text" id="username" placeholder="jobider123" />
           <Label htmlFor="email">Email</Label>
-          <Input type="email" id="email" placeholder="Email" />
+          <Input type="email" id="email" placeholder="avator@mail.com" />
           <Label htmlFor="password" className="mt-2">
             Password
           </Label>
-          <Input type="password" id="password" placeholder="•••••" />
+          <Input type="password" id="password" placeholder="••••••••" />
         </div>
         <Button variant="default">Create account</Button>
       </form>

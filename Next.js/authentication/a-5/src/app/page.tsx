@@ -1,9 +1,12 @@
 import AuthProvider from '@/components/AuthProvider';
 import { Navbar } from '@/components/Navbar';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import React from 'react';
+import { authOptions } from './api/auth/[...nextauth]/options';
 
-const App = () => {
+const App = async () => {
+  const session = await getServerSession(authOptions);
   return (
     <div>
       <AuthProvider>
@@ -13,6 +16,7 @@ const App = () => {
       <Link href="/dashboard" className="text-blue-500 hover:underline">
         Go to Dashboard (Admin Only)
       </Link>
+      <pre> {JSON.stringify(session)}</pre>
     </div>
   );
 };
