@@ -11,9 +11,9 @@ import { authOptions } from '@/lib/auth';
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
+  // console.log(session);
+  const { name, email, image, role, username } = session?.user || {};
 
-  const { name, email, image, role } = session?.user || {};
-  console.log(session);
   return (
     <header className="w-full bg-background shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
@@ -46,7 +46,9 @@ export default async function Navbar() {
         </nav>
         <div className="flex items-center gap-4">
           <DropdownMenu>
-            {session && <h2 className="text-base">{email}</h2>}
+            {session && <h2 className="text-base">Username: {username}</h2>}
+            {session && <h2 className="text-base">Role: {role}</h2>}
+            {session && <h2 className="text-base">Email: {email}</h2>}
             <DropdownMenuTrigger asChild>
               <Avatar className="h-9 w-9 cursor-pointer">
                 {session && <AvatarImage src={image} />}

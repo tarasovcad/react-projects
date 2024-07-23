@@ -5,7 +5,7 @@ import React from 'react';
 const Services = async () => {
   const session = await getServerSession();
   const email = session?.user?.email;
-
+  
   return (
     <div>
       <h1>you can see this title below only if you are sign in</h1>
@@ -16,4 +16,4 @@ const Services = async () => {
   );
 };
 
-export default Services; 
+export default Services;
