@@ -32,7 +32,7 @@ export default async function Navbar() {
             About
           </Link>
           <Link
-            href="#"
+            href="/services"
             className="text-sm font-medium hover:underline transition-all"
             prefetch={false}>
             Services
