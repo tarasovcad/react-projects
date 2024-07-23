@@ -8,33 +8,42 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { type IconProps } from '@/types/types';
 import { useState } from 'react';
+import { SignInFormData } from '@/validations/signInValidation';
+import { signInSchema } from '@/validations/signInValidation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 export default function SignIn() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+  });
+
+  const onSubmit = async (data: SignInFormData) => {
     try {
       const result = await signIn('credentials', {
         redirect: false,
-        email,
-        password,
+        email: data.email,
+        password: data.password,
       });
 
-      if (result.error) {
-        setError('Invalid email or password');
+      if (result?.error) {
+        setError('root', { message: 'Invalid email or password' });
         console.log(result?.error);
       } else {
         router.push('/');
       }
     } catch (error) {
       console.error('Sign in error:', error);
-      setError('An error occurred during sign in');
+      setError('root', { message: 'An error occurred during sign in' });
     }
   };
   return (
@@ -44,15 +53,11 @@ export default function SignIn() {
         <p className="text-muted-foreground">Enter your credentials to access your account.</p>
       </div>
       <div className="space-y-4">
-        <form className="grid gap-4" onSubmit={handleSubmit}>
+        <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-2">
             <Label htmlFor="Email">Email</Label>
-            <Input
-              id="email"
-              placeholder="Enter your email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Input id="email" placeholder="Enter your email" {...register('email')} />
+            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
@@ -60,10 +65,11 @@ export default function SignIn() {
               id="password"
               type="password"
               placeholder="Enter your password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
+              {...register('password')}
             />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </div>
+          {errors.root && <p className="text-red-500">{errors.root.message}</p>}
           <Button type="submit" className="w-full">
             Sign In
           </Button>

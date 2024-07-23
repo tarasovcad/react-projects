@@ -6,22 +6,29 @@ import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { type IconProps } from '@/types/types';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signUpSchema, type SignUpFormData } from '@/validations/signUpValidation';
 
 export default function SignUp() {
   const router = useRouter();
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    const { username, email, password } = event.target.elements;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = async (data: SignUpFormData) => {
+    console.log(data);
+    const { confirmPassword, ...apiData } = data;
     const response = await fetch('/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      }),
+      body: JSON.stringify(apiData),
     });
     if (response.ok) {
       router.push('/signin');
@@ -29,6 +36,7 @@ export default function SignUp() {
       console.error('Registration failed');
     }
   };
+
   return (
     <div className="mx-auto max-w-md space-y-6 py-12">
       <div className="space-y-2 text-center">
@@ -36,18 +44,26 @@ export default function SignUp() {
         <p className="text-muted-foreground">Sign in to your account or create a new one.</p>
       </div>
       <div className="space-y-4">
-        <form className="grid gap-4" onSubmit={onSubmit}>
+        <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-2">
             <Label htmlFor="username">Username</Label>
-            <Input id="username" placeholder="Enter your username" required />
+            <Input id="username" placeholder="Enter your username" {...register('username')} />
+            {errors.username && <p className="text-red-500">{errors.username.message}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Enter your email" required />
+            <Input id="email" type="email" placeholder="Enter your email" {...register('email')} />
+            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" placeholder="Enter your password" required />
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              {...register('password')}
+            />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="confirm-password">Confirm Password</Label>
@@ -55,8 +71,11 @@ export default function SignUp() {
               id="confirm-password"
               type="password"
               placeholder="Confirm your password"
-              required
+              {...register('confirmPassword')}
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500">{errors.confirmPassword.message}</p>
+            )}
           </div>
           <Button type="submit" className="w-full">
             Sign Up
