@@ -7,8 +7,12 @@ import { compare } from 'bcrypt';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaClient } from '@prisma/client';
+import { Resend } from 'resend';
+import EmailProvider from 'next-auth/providers/email';
 
 const prisma = new PrismaClient();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -17,6 +21,33 @@ export const authOptions: NextAuthOptions = {
     maxAge: 60 * 60 * 24 * 30, // 30 days
   },
   providers: [
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+      sendVerificationRequest: async ({ identifier: email, url }) => {
+        try {
+          const result = await resend.emails.send({
+            from: 'onboarding@resend.dev',
+            to: email,
+            subject: 'Sign in to Your App',
+            html: `<p>Click <a href="${url}">here</a> to sign in.</p>`,
+          });
+          if (result.error) {
+            throw new Error('Failed to send verification email');
+          }
+        } catch (error) {
+          console.error('Error sending verification email:', error);
+          throw new Error('Failed to send verification email');
+        }
+      },
+    }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -90,6 +121,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/signin',
+    verifyRequest: '/verify-request',
   },
-  // debug: true,
+  debug: true,
 };

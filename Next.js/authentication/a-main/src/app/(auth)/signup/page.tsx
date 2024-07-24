@@ -31,9 +31,10 @@ export default function SignUp() {
       body: JSON.stringify(apiData),
     });
     if (response.ok) {
-      router.push('/signin');
+      router.push('/verify-request');
     } else {
-      console.error('Registration failed');
+      const errorData = await response.json();
+      console.error('Registration failed:', errorData.message);
     }
   };
 
